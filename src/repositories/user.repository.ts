@@ -28,6 +28,22 @@ export const userRepository = {
     });
   },
 
+  async activeIdsByOrganization(organizationId: string) {
+    const rows = await prisma.user.findMany({
+      where: { organizationId, deletedAt: null, isActive: true },
+      select: { id: true },
+    });
+    return rows.map((r) => r.id);
+  },
+
+  listForOptions(organizationId: string) {
+    return prisma.user.findMany({
+      where: { organizationId, deletedAt: null, isActive: true },
+      select: { id: true, name: true, email: true, avatarUrl: true },
+      orderBy: { name: "asc" },
+    });
+  },
+
   create(data: Prisma.UserCreateInput) {
     return prisma.user.create({ data });
   },
