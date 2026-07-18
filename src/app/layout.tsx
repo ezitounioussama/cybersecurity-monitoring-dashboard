@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { shadcn } from "@clerk/ui/themes";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { QueryProvider } from "@/components/providers/query-provider";
@@ -32,13 +33,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
-      <html
-        lang="en"
-        suppressHydrationWarning
-        className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
-      >
-        <body className="min-h-full">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full">
+        <ClerkProvider
+          appearance={{ theme: shadcn, variables: { colorPrimary: "#6F259F" } }}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -50,8 +53,8 @@ export default function RootLayout({
             </QueryProvider>
             <Toaster richColors closeButton position="top-right" />
           </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

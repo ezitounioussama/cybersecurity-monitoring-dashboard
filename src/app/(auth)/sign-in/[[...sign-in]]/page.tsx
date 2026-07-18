@@ -4,5 +4,5 @@ import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Sign in" };
 
 export default function SignInPage() {
-  return <SignIn appearance={{ variables: { colorPrimary: "#6F259F" } }} />;
+  return <SignIn />;
 }
