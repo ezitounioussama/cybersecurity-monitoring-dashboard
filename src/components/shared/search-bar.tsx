@@ -15,9 +15,11 @@ export function SearchBar({
   const [value, setValue] = useState(search);
   const debounced = useDebounce(value, 350);
 
+  // Sync to the URL only when the debounced value settles; depending on
+  // `search`/`setSearch` here would re-fire on every navigation.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional debounce-only sync
   useEffect(() => {
     if (debounced !== search) setSearch(debounced);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounced]);
 
   return (

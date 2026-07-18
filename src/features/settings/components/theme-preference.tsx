@@ -41,11 +41,7 @@ export function ThemePreference() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div
-          role="radiogroup"
-          aria-label="Theme preference"
-          className="grid grid-cols-3 gap-2 sm:max-w-md"
-        >
+        <div className="grid grid-cols-3 gap-2 sm:max-w-md">
           {OPTIONS.map((option) => {
             const active = mounted && theme === option.value;
             const Icon = option.icon;
@@ -53,8 +49,7 @@ export function ThemePreference() {
               <Button
                 key={option.value}
                 type="button"
-                role="radio"
-                aria-checked={active}
+                aria-pressed={active}
                 variant={active ? "default" : "outline"}
                 className={cn(
                   "h-auto flex-col gap-1.5 py-3",
