@@ -1,7 +1,7 @@
 "use client";
 
-import type { ColumnDef } from "@tanstack/react-table";
 import { IconFlame } from "@tabler/icons-react";
+import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { DataTableColumnHeader } from "@/components/shared/data-table/data-table-column-header";
 import { SeverityBadge } from "@/components/shared/severity-badge";
@@ -35,21 +35,28 @@ export function getVulnerabilityColumns(opts: {
     },
     {
       accessorKey: "severity",
-      header: () => <DataTableColumnHeader title="Severity" sortKey="severity" />,
+      header: () => (
+        <DataTableColumnHeader title="Severity" sortKey="severity" />
+      ),
       cell: ({ row }) => <SeverityBadge value={row.original.severity} />,
     },
     {
       id: "asset",
       header: () => <DataTableColumnHeader title="Asset" />,
       cell: ({ row }) => (
-        <Link href={`/assets/${row.original.asset.id}`} className="text-sm hover:underline">
+        <Link
+          href={`/assets/${row.original.asset.id}`}
+          className="text-sm hover:underline"
+        >
           {row.original.asset.hostname}
         </Link>
       ),
     },
     {
       accessorKey: "patchStatus",
-      header: () => <DataTableColumnHeader title="Patch" sortKey="patchStatus" />,
+      header: () => (
+        <DataTableColumnHeader title="Patch" sortKey="patchStatus" />
+      ),
       cell: ({ row }) => <PatchStatusBadge value={row.original.patchStatus} />,
     },
     {
@@ -66,7 +73,9 @@ export function getVulnerabilityColumns(opts: {
     },
     {
       accessorKey: "discoveredAt",
-      header: () => <DataTableColumnHeader title="Discovered" sortKey="discoveredAt" />,
+      header: () => (
+        <DataTableColumnHeader title="Discovered" sortKey="discoveredAt" />
+      ),
       cell: ({ row }) => (
         <span className="whitespace-nowrap text-sm text-muted-foreground">
           {formatDate(row.original.discoveredAt)}

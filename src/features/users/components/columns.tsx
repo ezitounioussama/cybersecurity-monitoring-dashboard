@@ -72,7 +72,9 @@ export function getUserColumns(perms: {
     },
     {
       accessorKey: "updatedAt",
-      header: () => <DataTableColumnHeader title="Last active" sortKey="updatedAt" />,
+      header: () => (
+        <DataTableColumnHeader title="Last active" sortKey="updatedAt" />
+      ),
       cell: ({ row }) => (
         <span className="whitespace-nowrap text-sm text-muted-foreground">
           {formatRelative(row.original.updatedAt)}

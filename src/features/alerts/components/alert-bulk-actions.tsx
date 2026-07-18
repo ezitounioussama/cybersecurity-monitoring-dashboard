@@ -21,9 +21,13 @@ export function AlertBulkActions({ rows, clear, canUpdate, canDelete }: Props) {
 
   function bulkResolve() {
     startTransition(async () => {
-      const results = await Promise.all(ids.map((id) => updateAlertStatus(id, "RESOLVED")));
+      const results = await Promise.all(
+        ids.map((id) => updateAlertStatus(id, "RESOLVED")),
+      );
       const failed = results.filter((r) => !r.success).length;
-      failed ? toast.error(`${failed} could not be resolved`) : toast.success(`${ids.length} resolved`);
+      failed
+        ? toast.error(`${failed} could not be resolved`)
+        : toast.success(`${ids.length} resolved`);
       clear();
     });
   }
@@ -42,7 +46,13 @@ export function AlertBulkActions({ rows, clear, canUpdate, canDelete }: Props) {
   return (
     <div className="flex items-center gap-2">
       {canUpdate && (
-        <Button variant="outline" size="sm" className="h-9" disabled={pending} onClick={bulkResolve}>
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-9"
+          disabled={pending}
+          onClick={bulkResolve}
+        >
           <IconCircleCheck className="size-4" /> Resolve ({ids.length})
         </Button>
       )}
@@ -54,7 +64,12 @@ export function AlertBulkActions({ rows, clear, canUpdate, canDelete }: Props) {
           destructive
           onConfirm={bulkDelete}
           trigger={
-            <Button variant="outline" size="sm" className="h-9 text-destructive" disabled={pending}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-9 text-destructive"
+              disabled={pending}
+            >
               <IconTrash className="size-4" /> Delete ({ids.length})
             </Button>
           }

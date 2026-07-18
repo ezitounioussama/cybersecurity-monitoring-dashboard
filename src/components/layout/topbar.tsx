@@ -16,16 +16,17 @@ export function Topbar({ role }: { role: Role }) {
       <div className="flex items-center gap-1">
         <NotificationBell />
         <ThemeToggle />
-        <Separator orientation="vertical" className="mx-1 hidden h-6 sm:block" />
+        <Separator
+          orientation="vertical"
+          className="mx-1 hidden h-6 sm:block"
+        />
         <div className="hidden sm:block">
           <OrganizationSwitcher
             hidePersonal
             appearance={{ elements: { rootBox: "flex items-center" } }}
           />
         </div>
-        <UserButton
-          appearance={{ elements: { avatarBox: "size-8" } }}
-        />
+        <UserButton appearance={{ elements: { avatarBox: "size-8" } }} />
       </div>
     </header>
   );

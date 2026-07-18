@@ -32,9 +32,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { IocType, ThreatConfidence, ThreatStatus } from "@/generated/prisma/enums";
+import {
+  IocType,
+  ThreatConfidence,
+  ThreatStatus,
+} from "@/generated/prisma/enums";
 import { humanize } from "@/lib/format";
-import { threatFormSchema, type ThreatFormValues } from "@/schemas/threat.schema";
+import {
+  type ThreatFormValues,
+  threatFormSchema,
+} from "@/schemas/threat.schema";
 import type { ThreatFeedRow } from "@/types/threat";
 
 type Props = {
@@ -57,7 +64,12 @@ function toDefaults(threat?: ThreatFeedRow): ThreatFormValues {
   };
 }
 
-export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) {
+export function ThreatFormSheet({
+  threat,
+  trigger,
+  open,
+  onOpenChange,
+}: Props) {
   const isEdit = Boolean(threat);
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = open !== undefined;
@@ -105,7 +117,10 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 px-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid gap-4 px-4"
+          >
             <FormField
               control={form.control}
               name="ioc"
@@ -113,7 +128,10 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
                 <FormItem>
                   <FormLabel>IOC</FormLabel>
                   <FormControl>
-                    <Input placeholder="203.0.113.9 or evil.example.com" {...field} />
+                    <Input
+                      placeholder="203.0.113.9 or evil.example.com"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,11 +146,15 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
                     <FormLabel>Type</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         {Object.values(IocType).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -146,7 +168,9 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Source</FormLabel>
-                    <FormControl><Input placeholder="AbuseIPDB" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="AbuseIPDB" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -159,7 +183,9 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>IP Address</FormLabel>
-                    <FormControl><Input placeholder="203.0.113.9" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="203.0.113.9" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -170,7 +196,9 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Domain</FormLabel>
-                    <FormControl><Input placeholder="evil.example.com" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="evil.example.com" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -182,7 +210,9 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Hash</FormLabel>
-                  <FormControl><Input placeholder="SHA-256…" {...field} /></FormControl>
+                  <FormControl>
+                    <Input placeholder="SHA-256…" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -196,11 +226,15 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
                     <FormLabel>Confidence</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         {Object.values(ThreatConfidence).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -216,11 +250,15 @@ export function ThreatFormSheet({ threat, trigger, open, onOpenChange }: Props) 
                     <FormLabel>Status</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         {Object.values(ThreatStatus).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>

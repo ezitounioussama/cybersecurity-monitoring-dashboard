@@ -34,8 +34,8 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { AlertStatus, Severity } from "@/generated/prisma/enums";
-import { alertFormSchema, type AlertFormValues } from "@/schemas/alert.schema";
 import { humanize } from "@/lib/format";
+import { type AlertFormValues, alertFormSchema } from "@/schemas/alert.schema";
 
 export function CreateAlertSheet() {
   const [open, setOpen] = useState(false);
@@ -75,10 +75,15 @@ export function CreateAlertSheet() {
       <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
         <SheetHeader>
           <SheetTitle>Create alert</SheetTitle>
-          <SheetDescription>Log a new security alert for triage.</SheetDescription>
+          <SheetDescription>
+            Log a new security alert for triage.
+          </SheetDescription>
         </SheetHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 px-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid gap-4 px-4"
+          >
             <FormField
               control={form.control}
               name="title"
@@ -86,7 +91,10 @@ export function CreateAlertSheet() {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="Suspicious outbound connection" {...field} />
+                    <Input
+                      placeholder="Suspicious outbound connection"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -99,7 +107,11 @@ export function CreateAlertSheet() {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea rows={3} placeholder="What was detected…" {...field} />
+                    <Textarea
+                      rows={3}
+                      placeholder="What was detected…"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -114,11 +126,15 @@ export function CreateAlertSheet() {
                     <FormLabel>Severity</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         {Object.values(Severity).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -134,11 +150,15 @@ export function CreateAlertSheet() {
                     <FormLabel>Status</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         {Object.values(AlertStatus).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -154,7 +174,9 @@ export function CreateAlertSheet() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Source</FormLabel>
-                    <FormControl><Input placeholder="Firewall" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="Firewall" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -165,7 +187,9 @@ export function CreateAlertSheet() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Rule</FormLabel>
-                    <FormControl><Input placeholder="ET SCAN Nmap" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="ET SCAN Nmap" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -178,7 +202,9 @@ export function CreateAlertSheet() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Source IP</FormLabel>
-                    <FormControl><Input placeholder="10.0.0.5" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="10.0.0.5" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -189,7 +215,9 @@ export function CreateAlertSheet() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Destination IP</FormLabel>
-                    <FormControl><Input placeholder="203.0.113.9" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="203.0.113.9" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

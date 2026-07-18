@@ -4,7 +4,10 @@ import { IconExternalLink, IconPlus, IconUnlink } from "@tabler/icons-react";
 import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import { toast } from "sonner";
-import { linkAlertToIncident, unlinkAlertFromIncident } from "@/actions/incident.actions";
+import {
+  linkAlertToIncident,
+  unlinkAlertFromIncident,
+} from "@/actions/incident.actions";
 import { SeverityBadge } from "@/components/shared/severity-badge";
 import { AlertStatusBadge } from "@/components/shared/status-badge";
 import { Button } from "@/components/ui/button";
@@ -26,17 +29,27 @@ type Props = {
   canUpdate: boolean;
 };
 
-export function IncidentLinkedAlerts({ incidentId, linked, alertOptions, canUpdate }: Props) {
+export function IncidentLinkedAlerts({
+  incidentId,
+  linked,
+  alertOptions,
+  canUpdate,
+}: Props) {
   const [pending, startTransition] = useTransition();
   const [selected, setSelected] = useState("");
-  const linkedIds = useMemo(() => new Set(linked.map((l) => l.alert.id)), [linked]);
+  const linkedIds = useMemo(
+    () => new Set(linked.map((l) => l.alert.id)),
+    [linked],
+  );
   const available = alertOptions.filter((a) => !linkedIds.has(a.id));
 
   function link() {
     if (!selected) return;
     startTransition(async () => {
       const res = await linkAlertToIncident(incidentId, selected);
-      res.success ? toast.success("Alert linked") : toast.error(res.error.message);
+      res.success
+        ? toast.success("Alert linked")
+        : toast.error(res.error.message);
       setSelected("");
     });
   }
@@ -44,7 +57,9 @@ export function IncidentLinkedAlerts({ incidentId, linked, alertOptions, canUpda
   function unlink(alertId: string) {
     startTransition(async () => {
       const res = await unlinkAlertFromIncident(incidentId, alertId);
-      res.success ? toast.success("Alert unlinked") : toast.error(res.error.message);
+      res.success
+        ? toast.success("Alert unlinked")
+        : toast.error(res.error.message);
     });
   }
 
@@ -58,7 +73,9 @@ export function IncidentLinkedAlerts({ incidentId, linked, alertOptions, canUpda
             </SelectTrigger>
             <SelectContent>
               {available.map((a) => (
-                <SelectItem key={a.id} value={a.id}>{a.title}</SelectItem>
+                <SelectItem key={a.id} value={a.id}>
+                  {a.title}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -69,13 +86,23 @@ export function IncidentLinkedAlerts({ incidentId, linked, alertOptions, canUpda
       )}
 
       {linked.length === 0 ? (
-        <p className="text-sm text-muted-foreground">No alerts linked to this incident.</p>
+        <p className="text-sm text-muted-foreground">
+          No alerts linked to this incident.
+        </p>
       ) : (
         <ul className="space-y-2">
           {linked.map(({ alert }) => (
-            <li key={alert.id} className="flex items-center justify-between gap-2 rounded-lg border p-3">
-              <Link href={`/alerts/${alert.id}`} className="flex min-w-0 items-center gap-2 hover:underline">
-                <span className="truncate text-sm font-medium">{alert.title}</span>
+            <li
+              key={alert.id}
+              className="flex items-center justify-between gap-2 rounded-lg border p-3"
+            >
+              <Link
+                href={`/alerts/${alert.id}`}
+                className="flex min-w-0 items-center gap-2 hover:underline"
+              >
+                <span className="truncate text-sm font-medium">
+                  {alert.title}
+                </span>
                 <IconExternalLink className="size-3.5 shrink-0 text-muted-foreground" />
               </Link>
               <div className="flex shrink-0 items-center gap-2">

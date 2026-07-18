@@ -24,12 +24,42 @@ export default async function DashboardPage() {
   const { stats } = overview;
 
   const cards = [
-    { label: "Active Alerts", value: stats.activeAlerts, icon: IconAlertTriangle, accent: "text-red-600 bg-red-500/10" },
-    { label: "Critical Incidents", value: stats.criticalIncidents, icon: IconShieldBolt, accent: "text-orange-600 bg-orange-500/10" },
-    { label: "Open Vulnerabilities", value: stats.openVulnerabilities, icon: IconBug, accent: "text-amber-600 bg-amber-500/10" },
-    { label: "Total Assets", value: stats.totalAssets, icon: IconServer2, accent: "text-sky-600 bg-sky-500/10" },
-    { label: "Active Threats", value: stats.activeThreats, icon: IconRadar2, accent: "text-primary bg-primary/10" },
-    { label: "System Health", value: `${stats.systemHealth}%`, icon: IconActivityHeartbeat, accent: "text-emerald-600 bg-emerald-500/10" },
+    {
+      label: "Active Alerts",
+      value: stats.activeAlerts,
+      icon: IconAlertTriangle,
+      accent: "text-red-600 bg-red-500/10",
+    },
+    {
+      label: "Critical Incidents",
+      value: stats.criticalIncidents,
+      icon: IconShieldBolt,
+      accent: "text-orange-600 bg-orange-500/10",
+    },
+    {
+      label: "Open Vulnerabilities",
+      value: stats.openVulnerabilities,
+      icon: IconBug,
+      accent: "text-amber-600 bg-amber-500/10",
+    },
+    {
+      label: "Total Assets",
+      value: stats.totalAssets,
+      icon: IconServer2,
+      accent: "text-sky-600 bg-sky-500/10",
+    },
+    {
+      label: "Active Threats",
+      value: stats.activeThreats,
+      icon: IconRadar2,
+      accent: "text-primary bg-primary/10",
+    },
+    {
+      label: "System Health",
+      value: `${stats.systemHealth}%`,
+      icon: IconActivityHeartbeat,
+      accent: "text-emerald-600 bg-emerald-500/10",
+    },
   ];
 
   return (
@@ -52,7 +82,11 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <ChartCard title="Alerts over time" description="Last 30 days" className="lg:col-span-2">
+        <ChartCard
+          title="Alerts over time"
+          description="Last 30 days"
+          className="lg:col-span-2"
+        >
           <AlertsAreaChart data={overview.alertsOverTime} />
         </ChartCard>
         <ChartCard title="Incidents by severity">

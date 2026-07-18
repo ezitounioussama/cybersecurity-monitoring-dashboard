@@ -3,7 +3,6 @@
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { updateUserRole } from "@/actions/user.actions";
-import { Role } from "@/generated/prisma/enums";
 import {
   Select,
   SelectContent,
@@ -11,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Role } from "@/generated/prisma/enums";
 import { ROLE_STYLES } from "@/lib/constants";
 
 type Props = {
@@ -36,7 +36,11 @@ export function UserRoleSelect({ userId, role, canManage }: Props) {
   }
 
   return (
-    <Select value={role} onValueChange={handleChange} disabled={!canManage || pending}>
+    <Select
+      value={role}
+      onValueChange={handleChange}
+      disabled={!canManage || pending}
+    >
       <SelectTrigger size="sm" className="w-32">
         <SelectValue />
       </SelectTrigger>

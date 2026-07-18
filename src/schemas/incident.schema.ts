@@ -16,7 +16,9 @@ export const incidentCreateSchema = z.object({
 
 export const incidentUpdateSchema = incidentCreateSchema.partial();
 
-export const incidentStatusSchema = z.object({ status: z.enum(IncidentStatus) });
+export const incidentStatusSchema = z.object({
+  status: z.enum(IncidentStatus),
+});
 
 export const incidentAssignSchema = z.object({
   assignedAnalystId: z.preprocess(

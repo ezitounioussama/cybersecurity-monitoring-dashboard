@@ -13,7 +13,10 @@ import { Switch } from "@/components/ui/switch";
 
 const STORAGE_KEY = "soc:notification-preferences";
 
-type PreferenceKey = "criticalAlertEmails" | "incidentAssignments" | "weeklyDigest";
+type PreferenceKey =
+  | "criticalAlertEmails"
+  | "incidentAssignments"
+  | "weeklyDigest";
 
 type Preference = {
   key: PreferenceKey;

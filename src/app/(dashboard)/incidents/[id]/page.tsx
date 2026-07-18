@@ -33,17 +33,29 @@ export default async function IncidentDetailPage({
 
   const canUpdate = can(ctx.role, "incident:update");
   const alertOptions = canUpdate
-    ? (await alertService.options(ctx)).map((a) => ({ id: a.id, title: a.title }))
+    ? (await alertService.options(ctx)).map((a) => ({
+        id: a.id,
+        title: a.title,
+      }))
     : [];
 
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-2">
-          <Button variant="ghost" size="sm" asChild className="-ml-2 h-8 text-muted-foreground">
-            <Link href="/incidents"><IconArrowLeft className="size-4" /> Back to incidents</Link>
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="-ml-2 h-8 text-muted-foreground"
+          >
+            <Link href="/incidents">
+              <IconArrowLeft className="size-4" /> Back to incidents
+            </Link>
           </Button>
-          <h1 className="text-2xl font-semibold tracking-tight">{incident.title}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {incident.title}
+          </h1>
           <div className="flex flex-wrap items-center gap-2">
             <SeverityBadge value={incident.severity} />
             <span className="text-sm text-muted-foreground">
@@ -51,37 +63,60 @@ export default async function IncidentDetailPage({
             </span>
           </div>
         </div>
-        <IncidentStatusSelect incidentId={incident.id} status={incident.status} canUpdate={canUpdate} />
+        <IncidentStatusSelect
+          incidentId={incident.id}
+          status={incident.status}
+          canUpdate={canUpdate}
+        />
       </div>
 
       <Tabs defaultValue="overview">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="alerts">Linked Alerts ({incident.incidentAlerts.length})</TabsTrigger>
+          <TabsTrigger value="alerts">
+            Linked Alerts ({incident.incidentAlerts.length})
+          </TabsTrigger>
           <TabsTrigger value="timeline">Timeline</TabsTrigger>
-          <TabsTrigger value="evidence">Evidence ({incident.evidenceUrls.length})</TabsTrigger>
+          <TabsTrigger value="evidence">
+            Evidence ({incident.evidenceUrls.length})
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="mt-4">
           <div className="grid gap-6 lg:grid-cols-3">
             <Card className="lg:col-span-2">
-              <CardHeader><CardTitle className="text-base">Description</CardTitle></CardHeader>
+              <CardHeader>
+                <CardTitle className="text-base">Description</CardTitle>
+              </CardHeader>
               <CardContent>
-                <p className="whitespace-pre-wrap text-sm text-muted-foreground">{incident.description}</p>
+                <p className="whitespace-pre-wrap text-sm text-muted-foreground">
+                  {incident.description}
+                </p>
               </CardContent>
             </Card>
             <Card>
-              <CardHeader><CardTitle className="text-base">Assignee</CardTitle></CardHeader>
+              <CardHeader>
+                <CardTitle className="text-base">Assignee</CardTitle>
+              </CardHeader>
               <CardContent>
                 {incident.assignedAnalyst ? (
                   <div className="flex items-center gap-3">
                     <Avatar className="size-9">
-                      <AvatarImage src={incident.assignedAnalyst.avatarUrl ?? undefined} alt={incident.assignedAnalyst.name} />
-                      <AvatarFallback>{initials(incident.assignedAnalyst.name)}</AvatarFallback>
+                      <AvatarImage
+                        src={incident.assignedAnalyst.avatarUrl ?? undefined}
+                        alt={incident.assignedAnalyst.name}
+                      />
+                      <AvatarFallback>
+                        {initials(incident.assignedAnalyst.name)}
+                      </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-medium">{incident.assignedAnalyst.name}</p>
-                      <p className="text-xs text-muted-foreground">{incident.assignedAnalyst.email}</p>
+                      <p className="text-sm font-medium">
+                        {incident.assignedAnalyst.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {incident.assignedAnalyst.email}
+                      </p>
                     </div>
                   </div>
                 ) : (
@@ -117,7 +152,9 @@ export default async function IncidentDetailPage({
           <Card>
             <CardContent className="space-y-2 pt-6">
               {incident.evidenceUrls.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No evidence attached.</p>
+                <p className="text-sm text-muted-foreground">
+                  No evidence attached.
+                </p>
               ) : (
                 incident.evidenceUrls.map((url) => (
                   <a

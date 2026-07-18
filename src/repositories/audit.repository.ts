@@ -47,7 +47,9 @@ export const auditRepository = {
         skip,
         take,
         orderBy: orderBy ?? { createdAt: "desc" },
-        include: { user: { select: { name: true, email: true, avatarUrl: true } } },
+        include: {
+          user: { select: { name: true, email: true, avatarUrl: true } },
+        },
       }),
       prisma.auditLog.count({ where }),
     ]);

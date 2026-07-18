@@ -1,8 +1,8 @@
 "use client";
 
 import { IconBell, IconCheck } from "@tabler/icons-react";
-import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -20,7 +20,12 @@ export function NotificationBell() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative size-9" aria-label="Notifications">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative size-9"
+          aria-label="Notifications"
+        >
           <IconBell className="size-5" />
           {unreadCount > 0 && (
             <span className="absolute -right-0.5 -top-0.5 flex min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-semibold leading-4 text-white">
@@ -54,14 +59,23 @@ export function NotificationBell() {
           ) : (
             <ul className="divide-y">
               {items.map((n) => (
-                <li key={n.id} className={cn("px-4 py-3", !n.isRead && "bg-accent/40")}>
+                <li
+                  key={n.id}
+                  className={cn("px-4 py-3", !n.isRead && "bg-accent/40")}
+                >
                   <div className="flex items-start gap-2">
-                    {!n.isRead && <span className="mt-1.5 size-2 shrink-0 rounded-full bg-primary" />}
+                    {!n.isRead && (
+                      <span className="mt-1.5 size-2 shrink-0 rounded-full bg-primary" />
+                    )}
                     <div className="min-w-0">
                       <p className="truncate text-sm font-medium">{n.title}</p>
-                      <p className="line-clamp-2 text-xs text-muted-foreground">{n.message}</p>
+                      <p className="line-clamp-2 text-xs text-muted-foreground">
+                        {n.message}
+                      </p>
                       <p className="mt-0.5 text-[11px] text-muted-foreground">
-                        {formatDistanceToNow(new Date(n.createdAt), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(n.createdAt), {
+                          addSuffix: true,
+                        })}
                       </p>
                     </div>
                   </div>

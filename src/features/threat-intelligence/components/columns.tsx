@@ -20,7 +20,9 @@ export function getThreatColumns(perms: {
       header: () => <DataTableColumnHeader title="IOC" sortKey="ioc" />,
       cell: ({ row }) => (
         <div className="min-w-0">
-          <p className="truncate font-mono text-xs font-medium">{row.original.ioc}</p>
+          <p className="truncate font-mono text-xs font-medium">
+            {row.original.ioc}
+          </p>
           <p className="truncate text-xs text-muted-foreground">
             {humanize(row.original.iocType)}
           </p>
@@ -66,12 +68,18 @@ export function getThreatColumns(perms: {
     },
     {
       accessorKey: "confidence",
-      header: () => <DataTableColumnHeader title="Confidence" sortKey="confidence" />,
-      cell: ({ row }) => <ThreatConfidenceBadge value={row.original.confidence} />,
+      header: () => (
+        <DataTableColumnHeader title="Confidence" sortKey="confidence" />
+      ),
+      cell: ({ row }) => (
+        <ThreatConfidenceBadge value={row.original.confidence} />
+      ),
     },
     {
       accessorKey: "lastSeenAt",
-      header: () => <DataTableColumnHeader title="Last Seen" sortKey="lastSeenAt" />,
+      header: () => (
+        <DataTableColumnHeader title="Last Seen" sortKey="lastSeenAt" />
+      ),
       cell: ({ row }) => (
         <span className="whitespace-nowrap text-sm text-muted-foreground">
           {formatRelative(row.original.lastSeenAt)}

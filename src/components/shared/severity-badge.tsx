@@ -1,5 +1,5 @@
-import type { AssetCriticality, Severity } from "@/generated/prisma/enums";
 import { StatusBadge } from "@/components/shared/status-badge";
+import type { AssetCriticality, Severity } from "@/generated/prisma/enums";
 import { ASSET_CRITICALITY_STYLES, SEVERITY_STYLES } from "@/lib/constants";
 
 export function SeverityBadge({ value }: { value: Severity }) {

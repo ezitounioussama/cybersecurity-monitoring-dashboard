@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import type {
   AlertStatus,
   AssetStatus,
@@ -7,7 +8,6 @@ import type {
   ThreatConfidence,
   ThreatStatus,
 } from "@/generated/prisma/enums";
-import { Badge } from "@/components/ui/badge";
 import {
   ALERT_STATUS_STYLES,
   ASSET_STATUS_STYLES,
@@ -45,9 +45,11 @@ export const AssetStatusBadge = ({ value }: { value: AssetStatus }) => (
 export const PatchStatusBadge = ({ value }: { value: PatchStatus }) => (
   <StatusBadge style={PATCH_STATUS_STYLES[value]} />
 );
-export const ThreatConfidenceBadge = ({ value }: { value: ThreatConfidence }) => (
-  <StatusBadge style={THREAT_CONFIDENCE_STYLES[value]} />
-);
+export const ThreatConfidenceBadge = ({
+  value,
+}: {
+  value: ThreatConfidence;
+}) => <StatusBadge style={THREAT_CONFIDENCE_STYLES[value]} />;
 export const ThreatStatusBadge = ({ value }: { value: ThreatStatus }) => (
   <StatusBadge style={THREAT_STATUS_STYLES[value]} />
 );

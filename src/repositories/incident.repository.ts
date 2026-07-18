@@ -45,7 +45,10 @@ export const incidentRepository = {
         skip: filters.skip,
         take: filters.take,
         orderBy: filters.orderBy ?? { createdAt: "desc" },
-        include: { ...analystSelect, _count: { select: { incidentAlerts: true } } },
+        include: {
+          ...analystSelect,
+          _count: { select: { incidentAlerts: true } },
+        },
       }),
       prisma.incident.count({ where }),
     ]);
@@ -56,13 +59,27 @@ export const incidentRepository = {
     return prisma.incident.findFirst({
       where: { id, organizationId, deletedAt: null },
       include: {
-        assignedAnalyst: { select: { id: true, name: true, email: true, avatarUrl: true } },
+        assignedAnalyst: {
+          select: { id: true, name: true, email: true, avatarUrl: true },
+        },
         incidentAlerts: {
-          include: { alert: { select: { id: true, title: true, severity: true, status: true, detectedAt: true } } },
+          include: {
+            alert: {
+              select: {
+                id: true,
+                title: true,
+                severity: true,
+                status: true,
+                detectedAt: true,
+              },
+            },
+          },
           orderBy: { linkedAt: "desc" },
         },
         activities: {
-          include: { user: { select: { id: true, name: true, avatarUrl: true } } },
+          include: {
+            user: { select: { id: true, name: true, avatarUrl: true } },
+          },
           orderBy: { createdAt: "desc" },
         },
       },
@@ -78,7 +95,10 @@ export const incidentRepository = {
   },
 
   softDelete(id: string) {
-    return prisma.incident.update({ where: { id }, data: { deletedAt: new Date() } });
+    return prisma.incident.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   addActivity(incidentId: string, userId: string, action: string) {

@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
 import { IconUsers } from "@tabler/icons-react";
+import { useMemo } from "react";
 import { DataTable } from "@/components/shared/data-table/data-table";
 import { EmptyState } from "@/components/shared/empty-state";
 import { getUserColumns } from "@/features/users/components/columns";
@@ -19,7 +19,14 @@ type Props = {
   perms: { canManage: boolean; canExport: boolean };
 };
 
-export function UserTable({ data, page, pageSize, pageCount, total, perms }: Props) {
+export function UserTable({
+  data,
+  page,
+  pageSize,
+  pageCount,
+  total,
+  perms,
+}: Props) {
   const columns = useMemo(
     () => getUserColumns({ canManage: perms.canManage }),
     [perms.canManage],
@@ -36,7 +43,11 @@ export function UserTable({ data, page, pageSize, pageCount, total, perms }: Pro
       getRowId={(row) => row.id}
       searchPlaceholder="Search users by name or email…"
       facets={[
-        { filterKey: "role", title: "Role", options: facetOptions(ROLE_STYLES) },
+        {
+          filterKey: "role",
+          title: "Role",
+          options: facetOptions(ROLE_STYLES),
+        },
       ]}
       canExport={perms.canExport}
       csv={{
@@ -45,7 +56,10 @@ export function UserTable({ data, page, pageSize, pageCount, total, perms }: Pro
           { header: "Name", accessor: (u) => u.name },
           { header: "Email", accessor: (u) => u.email },
           { header: "Role", accessor: (u) => ROLE_STYLES[u.role].label },
-          { header: "Status", accessor: (u) => (u.isActive ? "Active" : "Inactive") },
+          {
+            header: "Status",
+            accessor: (u) => (u.isActive ? "Active" : "Inactive"),
+          },
           { header: "Created", accessor: (u) => formatDateTime(u.createdAt) },
         ],
       }}

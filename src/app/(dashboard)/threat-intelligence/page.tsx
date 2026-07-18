@@ -1,12 +1,20 @@
 import { IconRadar } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
-import { IocType, ThreatConfidence, ThreatStatus } from "@/generated/prisma/enums";
 import { ThreatFormSheet } from "@/features/threat-intelligence/components/threat-form";
 import { ThreatTable } from "@/features/threat-intelligence/components/threat-table";
+import {
+  IocType,
+  ThreatConfidence,
+  ThreatStatus,
+} from "@/generated/prisma/enums";
 import { getAuthContext } from "@/lib/auth";
 import { asEnumArray } from "@/lib/query-utils";
-import { readArray, readListParams, type SearchParamsInput } from "@/lib/search-params";
+import {
+  readArray,
+  readListParams,
+  type SearchParamsInput,
+} from "@/lib/search-params";
 import { can } from "@/services/authorization.service";
 import { threatService } from "@/services/threat.service";
 

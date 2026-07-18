@@ -4,13 +4,13 @@ import { humanize } from "@/lib/format";
 import { orderByFrom, paginated } from "@/lib/query-utils";
 import { incidentRepository } from "@/repositories/incident.repository";
 import { userRepository } from "@/repositories/user.repository";
-import { assertCan } from "@/services/authorization.service";
-import { auditService } from "@/services/audit.service";
-import { notificationService } from "@/services/notification.service";
 import type {
   IncidentCreateInput,
   IncidentUpdateInput,
 } from "@/schemas/incident.schema";
+import { auditService } from "@/services/audit.service";
+import { assertCan } from "@/services/authorization.service";
+import { notificationService } from "@/services/notification.service";
 import type { ListParams } from "@/types/api";
 import type { AuthContext } from "@/types/auth";
 
@@ -28,7 +28,9 @@ export const incidentService = {
       status: params.status,
       skip: (page - 1) * pageSize,
       take: pageSize,
-      orderBy: orderByFrom(params.sortBy, params.sortDir, SORTABLE, { createdAt: "desc" }),
+      orderBy: orderByFrom(params.sortBy, params.sortDir, SORTABLE, {
+        createdAt: "desc",
+      }),
     });
     return paginated(items, total, page, pageSize);
   },
@@ -50,7 +52,11 @@ export const incidentService = {
       assignedAnalystId: input.assignedAnalystId,
       evidenceUrls: input.evidenceUrls,
     });
-    await incidentRepository.addActivity(incident.id, ctx.userId, "created the incident");
+    await incidentRepository.addActivity(
+      incident.id,
+      ctx.userId,
+      "created the incident",
+    );
     await auditService.record(ctx, {
       action: "CREATE",
       entityType: "Incident",
@@ -73,7 +79,11 @@ export const incidentService = {
     assertCan(ctx.role, "incident:update");
     await this.getById(ctx, id);
     const incident = await incidentRepository.update(id, input);
-    await auditService.record(ctx, { action: "UPDATE", entityType: "Incident", entityId: id });
+    await auditService.record(ctx, {
+      action: "UPDATE",
+      entityType: "Incident",
+      entityId: id,
+    });
     return incident;
   },
 
@@ -81,7 +91,11 @@ export const incidentService = {
     assertCan(ctx.role, "incident:update");
     await this.getById(ctx, id);
     const incident = await incidentRepository.update(id, { status });
-    await incidentRepository.addActivity(id, ctx.userId, `changed status to ${humanize(status)}`);
+    await incidentRepository.addActivity(
+      id,
+      ctx.userId,
+      `changed status to ${humanize(status)}`,
+    );
     await auditService.record(ctx, {
       action: "UPDATE",
       entityType: "Incident",
@@ -95,13 +109,21 @@ export const incidentService = {
     assertCan(ctx.role, "incident:update");
     await this.getById(ctx, id);
     const incident = await incidentRepository.update(id, { assignedAnalystId });
-    const analyst = assignedAnalystId ? await userRepository.findById(assignedAnalystId) : null;
+    const analyst = assignedAnalystId
+      ? await userRepository.findById(assignedAnalystId)
+      : null;
     await incidentRepository.addActivity(
       id,
       ctx.userId,
-      analyst ? `assigned the incident to ${analyst.name}` : "unassigned the incident",
+      analyst
+        ? `assigned the incident to ${analyst.name}`
+        : "unassigned the incident",
     );
-    await auditService.record(ctx, { action: "UPDATE", entityType: "Incident", entityId: id });
+    await auditService.record(ctx, {
+      action: "UPDATE",
+      entityType: "Incident",
+      entityId: id,
+    });
     return incident;
   },
 
@@ -110,7 +132,11 @@ export const incidentService = {
     await this.getById(ctx, id);
     await incidentRepository.linkAlert(id, alertId);
     await incidentRepository.addActivity(id, ctx.userId, "linked an alert");
-    await auditService.record(ctx, { action: "UPDATE", entityType: "Incident", entityId: id });
+    await auditService.record(ctx, {
+      action: "UPDATE",
+      entityType: "Incident",
+      entityId: id,
+    });
   },
 
   async unlinkAlert(ctx: AuthContext, id: string, alertId: string) {
@@ -118,13 +144,21 @@ export const incidentService = {
     await this.getById(ctx, id);
     await incidentRepository.unlinkAlert(id, alertId);
     await incidentRepository.addActivity(id, ctx.userId, "unlinked an alert");
-    await auditService.record(ctx, { action: "UPDATE", entityType: "Incident", entityId: id });
+    await auditService.record(ctx, {
+      action: "UPDATE",
+      entityType: "Incident",
+      entityId: id,
+    });
   },
 
   async remove(ctx: AuthContext, id: string) {
     assertCan(ctx.role, "incident:delete");
     await this.getById(ctx, id);
     await incidentRepository.softDelete(id);
-    await auditService.record(ctx, { action: "DELETE", entityType: "Incident", entityId: id });
+    await auditService.record(ctx, {
+      action: "DELETE",
+      entityType: "Incident",
+      entityId: id,
+    });
   },
 };

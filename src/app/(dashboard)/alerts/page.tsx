@@ -1,12 +1,16 @@
 import { IconAlertTriangle } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
-import { AlertStatus, Severity } from "@/generated/prisma/enums";
 import { CreateAlertSheet } from "@/features/alerts/components/alert-form";
 import { AlertTable } from "@/features/alerts/components/alert-table";
+import { AlertStatus, Severity } from "@/generated/prisma/enums";
 import { getAuthContext } from "@/lib/auth";
 import { asEnumArray } from "@/lib/query-utils";
-import { readArray, readListParams, type SearchParamsInput } from "@/lib/search-params";
+import {
+  readArray,
+  readListParams,
+  type SearchParamsInput,
+} from "@/lib/search-params";
 import { alertService } from "@/services/alert.service";
 import { can } from "@/services/authorization.service";
 

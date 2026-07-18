@@ -10,8 +10,14 @@ export const GET = apiRoute("read", async (_req, { ctx, url }) => {
   const exploit = url.searchParams.get("exploitAvailable");
   const result = await vulnerabilityService.list(ctx, {
     ...params,
-    severity: asEnumArray(url.searchParams.get("severity")?.split(","), Severity),
-    patchStatus: asEnumArray(url.searchParams.get("patchStatus")?.split(","), PatchStatus),
+    severity: asEnumArray(
+      url.searchParams.get("severity")?.split(","),
+      Severity,
+    ),
+    patchStatus: asEnumArray(
+      url.searchParams.get("patchStatus")?.split(","),
+      PatchStatus,
+    ),
     exploitAvailable: exploit === null ? undefined : exploit === "true",
   });
   return ok(result);

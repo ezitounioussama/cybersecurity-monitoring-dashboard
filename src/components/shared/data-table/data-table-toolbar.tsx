@@ -3,12 +3,12 @@
 import { IconDownload, IconX } from "@tabler/icons-react";
 import type { Table } from "@tanstack/react-table";
 import type { ReactNode } from "react";
-import { SearchBar } from "@/components/shared/search-bar";
 import {
   DataTableFacetedFilter,
   type FacetOption,
 } from "@/components/shared/data-table/data-table-faceted-filter";
 import { DataTableViewOptions } from "@/components/shared/data-table/data-table-view-options";
+import { SearchBar } from "@/components/shared/search-bar";
 import { Button } from "@/components/ui/button";
 import { useDataTableParams } from "@/hooks/use-data-table";
 
@@ -52,7 +52,12 @@ export function DataTableToolbar<T>({
           <DataTableFacetedFilter key={facet.filterKey} {...facet} />
         ))}
         {hasReset && (
-          <Button variant="ghost" size="sm" className="h-9 px-2" onClick={resetAll}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-9 px-2"
+            onClick={resetAll}
+          >
             Reset
             <IconX className="size-4" />
           </Button>
@@ -61,7 +66,12 @@ export function DataTableToolbar<T>({
       <div className="flex items-center gap-2">
         {bulkActions}
         {canExport && onExport && (
-          <Button variant="outline" size="sm" className="h-9" onClick={onExport}>
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-9"
+            onClick={onExport}
+          >
             <IconDownload className="size-4" />
             <span className="hidden sm:inline">Export CSV</span>
           </Button>

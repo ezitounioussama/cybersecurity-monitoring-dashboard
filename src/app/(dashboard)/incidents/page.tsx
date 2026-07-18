@@ -2,15 +2,19 @@ import { IconPlus, IconShieldBolt } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
-import { IncidentStatus, Severity } from "@/generated/prisma/enums";
 import { IncidentFormSheet } from "@/features/incidents/components/incident-form";
 import { IncidentTable } from "@/features/incidents/components/incident-table";
+import { IncidentStatus, Severity } from "@/generated/prisma/enums";
 import { getAuthContext } from "@/lib/auth";
 import { asEnumArray } from "@/lib/query-utils";
-import { readArray, readListParams, type SearchParamsInput } from "@/lib/search-params";
-import { incidentService } from "@/services/incident.service";
-import { can } from "@/services/authorization.service";
+import {
+  readArray,
+  readListParams,
+  type SearchParamsInput,
+} from "@/lib/search-params";
 import { userRepository } from "@/repositories/user.repository";
+import { can } from "@/services/authorization.service";
+import { incidentService } from "@/services/incident.service";
 
 export const metadata: Metadata = { title: "Incidents" };
 

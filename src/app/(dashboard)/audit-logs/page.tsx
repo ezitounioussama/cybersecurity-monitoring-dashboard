@@ -6,7 +6,11 @@ import { AuditTable } from "@/features/audit-logs/components/audit-table";
 import { AuditAction } from "@/generated/prisma/enums";
 import { getAuthContext } from "@/lib/auth";
 import { asEnumArray } from "@/lib/query-utils";
-import { readArray, readListParams, type SearchParamsInput } from "@/lib/search-params";
+import {
+  readArray,
+  readListParams,
+  type SearchParamsInput,
+} from "@/lib/search-params";
 import { auditService } from "@/services/audit.service";
 import { can } from "@/services/authorization.service";
 

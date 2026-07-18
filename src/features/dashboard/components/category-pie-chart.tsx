@@ -1,8 +1,15 @@
 "use client";
 
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { CHART_COLORS } from "@/lib/constants";
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 import { TOOLTIP_STYLE } from "@/features/dashboard/components/chart-card";
+import { CHART_COLORS } from "@/lib/constants";
 import type { ChartDatum } from "@/types/dashboard";
 
 export function CategoryPieChart({ data }: { data: ChartDatum[] }) {
@@ -25,14 +32,19 @@ export function CategoryPieChart({ data }: { data: ChartDatum[] }) {
           stroke="var(--color-card)"
         >
           {data.map((entry, i) => (
-            <Cell key={entry.name} fill={entry.fill ?? CHART_COLORS[i % CHART_COLORS.length]} />
+            <Cell
+              key={entry.name}
+              fill={entry.fill ?? CHART_COLORS[i % CHART_COLORS.length]}
+            />
           ))}
         </Pie>
         <Tooltip contentStyle={TOOLTIP_STYLE} />
         <Legend
           verticalAlign="bottom"
           iconType="circle"
-          formatter={(value) => <span className="text-xs text-muted-foreground">{value}</span>}
+          formatter={(value) => (
+            <span className="text-xs text-muted-foreground">{value}</span>
+          )}
         />
       </PieChart>
     </ResponsiveContainer>

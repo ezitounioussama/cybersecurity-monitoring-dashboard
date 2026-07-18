@@ -12,10 +12,19 @@ export const dashboardRepository = {
       unpatchedCritical,
     ] = await Promise.all([
       prisma.alert.count({
-        where: { organizationId, deletedAt: null, status: { in: ["OPEN", "ACKNOWLEDGED"] } },
+        where: {
+          organizationId,
+          deletedAt: null,
+          status: { in: ["OPEN", "ACKNOWLEDGED"] },
+        },
       }),
       prisma.incident.count({
-        where: { organizationId, deletedAt: null, severity: "CRITICAL", status: { not: "CLOSED" } },
+        where: {
+          organizationId,
+          deletedAt: null,
+          severity: "CRITICAL",
+          status: { not: "CLOSED" },
+        },
       }),
       prisma.vulnerability.count({
         where: { organizationId, patchStatus: { not: "PATCHED" } },
@@ -23,7 +32,11 @@ export const dashboardRepository = {
       prisma.asset.count({ where: { organizationId, deletedAt: null } }),
       prisma.threatFeed.count({ where: { organizationId, status: "ACTIVE" } }),
       prisma.vulnerability.count({
-        where: { organizationId, severity: "CRITICAL", patchStatus: { not: "PATCHED" } },
+        where: {
+          organizationId,
+          severity: "CRITICAL",
+          patchStatus: { not: "PATCHED" },
+        },
       }),
     ]);
     return {

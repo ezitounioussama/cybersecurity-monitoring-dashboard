@@ -9,8 +9,14 @@ export const GET = apiRoute("read", async (_req, { ctx, url }) => {
   const params = parseListParams(url);
   const result = await assetService.list(ctx, {
     ...params,
-    criticality: asEnumArray(url.searchParams.get("criticality")?.split(","), AssetCriticality),
-    status: asEnumArray(url.searchParams.get("status")?.split(","), AssetStatus),
+    criticality: asEnumArray(
+      url.searchParams.get("criticality")?.split(","),
+      AssetCriticality,
+    ),
+    status: asEnumArray(
+      url.searchParams.get("status")?.split(","),
+      AssetStatus,
+    ),
   });
   return ok(result);
 });

@@ -1,5 +1,9 @@
 import type { Prisma } from "@/generated/prisma/client";
-import type { IocType, ThreatConfidence, ThreatStatus } from "@/generated/prisma/enums";
+import type {
+  IocType,
+  ThreatConfidence,
+  ThreatStatus,
+} from "@/generated/prisma/enums";
 import { prisma } from "@/lib/prisma";
 
 export type ThreatListFilters = {

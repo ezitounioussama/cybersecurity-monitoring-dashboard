@@ -7,11 +7,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { type ReactNode, useMemo, useState } from "react";
+import { DataTablePagination } from "@/components/shared/data-table/data-table-pagination";
 import {
   DataTableToolbar,
   type TableFacet,
 } from "@/components/shared/data-table/data-table-toolbar";
-import { DataTablePagination } from "@/components/shared/data-table/data-table-pagination";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
@@ -123,10 +123,16 @@ export function DataTable<T>({
               {table.getHeaderGroups().map((group) => (
                 <TableRow key={group.id} className="hover:bg-transparent">
                   {group.headers.map((header) => (
-                    <TableHead key={header.id} style={{ width: header.getSize() }}>
+                    <TableHead
+                      key={header.id}
+                      style={{ width: header.getSize() }}
+                    >
                       {header.isPlaceholder
                         ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
                   ))}
                 </TableRow>
@@ -135,10 +141,16 @@ export function DataTable<T>({
             <TableBody>
               {table.getRowModel().rows.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>

@@ -1,4 +1,5 @@
 import {
+  type Icon,
   IconAlertTriangle,
   IconBell,
   IconBug,
@@ -9,7 +10,6 @@ import {
   IconSettings,
   IconShieldBolt,
   IconUsers,
-  type Icon,
 } from "@tabler/icons-react";
 import type { Role } from "@/generated/prisma/enums";
 
@@ -27,7 +27,11 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Incidents", href: "/incidents", icon: IconShieldBolt },
   { label: "Assets", href: "/assets", icon: IconServer2 },
   { label: "Vulnerabilities", href: "/vulnerabilities", icon: IconBug },
-  { label: "Threat Intelligence", href: "/threat-intelligence", icon: IconRadar2 },
+  {
+    label: "Threat Intelligence",
+    href: "/threat-intelligence",
+    icon: IconRadar2,
+  },
   {
     label: "Audit Logs",
     href: "/audit-logs",

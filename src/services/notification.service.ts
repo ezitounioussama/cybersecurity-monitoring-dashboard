@@ -1,7 +1,7 @@
 import type { NotificationType } from "@/generated/prisma/enums";
+import { paginated } from "@/lib/query-utils";
 import { notificationRepository } from "@/repositories/notification.repository";
 import { userRepository } from "@/repositories/user.repository";
-import { paginated } from "@/lib/query-utils";
 import type { ListParams } from "@/types/api";
 import type { AuthContext } from "@/types/auth";
 
@@ -16,7 +16,8 @@ type NotifyInput = {
 export const notificationService = {
   /** Fan a notification out to every active member of an organization. */
   async notifyOrganization(organizationId: string, input: NotifyInput) {
-    const userIds = await userRepository.activeIdsByOrganization(organizationId);
+    const userIds =
+      await userRepository.activeIdsByOrganization(organizationId);
     if (userIds.length === 0) return;
     await notificationRepository.createMany(
       userIds.map((userId) => ({

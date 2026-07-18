@@ -21,9 +21,7 @@ export function StatsCard({
   accentClassName = "text-primary bg-primary/10",
 }: StatsCardProps) {
   const isUp = (trend?.value ?? 0) >= 0;
-  const good = trend
-    ? (trend.positiveIsGood ?? true) === isUp
-    : true;
+  const good = trend ? (trend.positiveIsGood ?? true) === isUp : true;
 
   return (
     <Card className="overflow-hidden">
@@ -37,7 +35,9 @@ export function StatsCard({
             <p
               className={cn(
                 "flex items-center gap-0.5 text-xs font-medium",
-                good ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400",
+                good
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-red-600 dark:text-red-400",
               )}
             >
               {isUp ? (

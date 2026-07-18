@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
 import { IconServer2 } from "@tabler/icons-react";
+import { useMemo } from "react";
 import { DataTable } from "@/components/shared/data-table/data-table";
 import { EmptyState } from "@/components/shared/empty-state";
 import { AssetBulkActions } from "@/features/assets/components/asset-bulk-actions";
@@ -21,7 +21,15 @@ type Props = {
   perms: { canManage: boolean; canExport: boolean };
 };
 
-export function AssetTable({ data, page, pageSize, pageCount, total, ownerOptions, perms }: Props) {
+export function AssetTable({
+  data,
+  page,
+  pageSize,
+  pageCount,
+  total,
+  ownerOptions,
+  perms,
+}: Props) {
   const columns = useMemo(
     () => getAssetColumns({ canManage: perms.canManage, ownerOptions }),
     [perms.canManage, ownerOptions],
@@ -38,8 +46,16 @@ export function AssetTable({ data, page, pageSize, pageCount, total, ownerOption
       getRowId={(row) => row.id}
       searchPlaceholder="Search hostname, IP, OS…"
       facets={[
-        { filterKey: "criticality", title: "Criticality", options: facetOptions(ASSET_CRITICALITY_STYLES) },
-        { filterKey: "status", title: "Status", options: facetOptions(ASSET_STATUS_STYLES) },
+        {
+          filterKey: "criticality",
+          title: "Criticality",
+          options: facetOptions(ASSET_CRITICALITY_STYLES),
+        },
+        {
+          filterKey: "status",
+          title: "Status",
+          options: facetOptions(ASSET_STATUS_STYLES),
+        },
       ]}
       canExport={perms.canExport}
       csv={{
@@ -51,7 +67,10 @@ export function AssetTable({ data, page, pageSize, pageCount, total, ownerOption
           { header: "Criticality", accessor: (a) => a.criticality },
           { header: "Status", accessor: (a) => a.status },
           { header: "Owner", accessor: (a) => a.owner?.name ?? "" },
-          { header: "Last Scan", accessor: (a) => (a.lastScanAt ? formatDate(a.lastScanAt) : "") },
+          {
+            header: "Last Scan",
+            accessor: (a) => (a.lastScanAt ? formatDate(a.lastScanAt) : ""),
+          },
         ],
       }}
       bulkActions={

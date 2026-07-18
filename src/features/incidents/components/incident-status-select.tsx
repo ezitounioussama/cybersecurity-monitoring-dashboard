@@ -24,19 +24,30 @@ export function IncidentStatusSelect({ incidentId, status, canUpdate }: Props) {
 
   function onChange(value: string) {
     startTransition(async () => {
-      const res = await updateIncidentStatus(incidentId, value as IncidentStatus);
-      res.success ? toast.success("Status updated") : toast.error(res.error.message);
+      const res = await updateIncidentStatus(
+        incidentId,
+        value as IncidentStatus,
+      );
+      res.success
+        ? toast.success("Status updated")
+        : toast.error(res.error.message);
     });
   }
 
   return (
-    <Select value={status} onValueChange={onChange} disabled={!canUpdate || pending}>
+    <Select
+      value={status}
+      onValueChange={onChange}
+      disabled={!canUpdate || pending}
+    >
       <SelectTrigger size="sm" className="w-44">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {Object.values(IncidentStatus).map((v) => (
-          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+          <SelectItem key={v} value={v}>
+            {humanize(v)}
+          </SelectItem>
         ))}
       </SelectContent>
     </Select>

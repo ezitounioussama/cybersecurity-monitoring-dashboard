@@ -2,15 +2,19 @@ import { IconPlus, IconServer2 } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
-import { AssetCriticality, AssetStatus } from "@/generated/prisma/enums";
 import { AssetFormSheet } from "@/features/assets/components/asset-form";
 import { AssetTable } from "@/features/assets/components/asset-table";
+import { AssetCriticality, AssetStatus } from "@/generated/prisma/enums";
 import { getAuthContext } from "@/lib/auth";
 import { asEnumArray } from "@/lib/query-utils";
-import { readArray, readListParams, type SearchParamsInput } from "@/lib/search-params";
+import {
+  readArray,
+  readListParams,
+  type SearchParamsInput,
+} from "@/lib/search-params";
+import { userRepository } from "@/repositories/user.repository";
 import { assetService } from "@/services/asset.service";
 import { can } from "@/services/authorization.service";
-import { userRepository } from "@/repositories/user.repository";
 
 export const metadata: Metadata = { title: "Assets" };
 

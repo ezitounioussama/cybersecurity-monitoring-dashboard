@@ -6,7 +6,11 @@ import { Input } from "@/components/ui/input";
 import { useDataTableParams } from "@/hooks/use-data-table";
 import { useDebounce } from "@/hooks/use-debounce";
 
-export function SearchBar({ placeholder = "Search…" }: { placeholder?: string }) {
+export function SearchBar({
+  placeholder = "Search…",
+}: {
+  placeholder?: string;
+}) {
   const { search, setSearch } = useDataTableParams();
   const [value, setValue] = useState(search);
   const debounced = useDebounce(value, 350);

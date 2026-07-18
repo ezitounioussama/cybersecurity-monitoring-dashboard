@@ -48,7 +48,10 @@ export function DataTableFacetedFilter({ filterKey, title, options }: Props) {
           {selected.size > 0 && (
             <>
               <Separator orientation="vertical" className="mx-1 h-4" />
-              <Badge variant="secondary" className="rounded-sm px-1 font-normal">
+              <Badge
+                variant="secondary"
+                className="rounded-sm px-1 font-normal"
+              >
                 {selected.size}
               </Badge>
             </>
@@ -64,7 +67,10 @@ export function DataTableFacetedFilter({ filterKey, title, options }: Props) {
               {options.map((option) => {
                 const isSelected = selected.has(option.value);
                 return (
-                  <CommandItem key={option.value} onSelect={() => toggle(option.value)}>
+                  <CommandItem
+                    key={option.value}
+                    onSelect={() => toggle(option.value)}
+                  >
                     <div
                       className={cn(
                         "flex size-4 items-center justify-center rounded-sm border border-primary",

@@ -26,7 +26,8 @@ export function useNotifications() {
     mutationFn: async () => {
       await fetch("/api/notifications/mark-all-read", { method: "POST" });
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notifications"] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["notifications"] }),
   });
 
   return {

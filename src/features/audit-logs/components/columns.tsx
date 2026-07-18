@@ -1,10 +1,10 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import type { AuditAction } from "@/generated/prisma/enums";
 import { DataTableColumnHeader } from "@/components/shared/data-table/data-table-column-header";
-import { StatusBadge, RoleBadge } from "@/components/shared/status-badge";
+import { RoleBadge, StatusBadge } from "@/components/shared/status-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { AuditAction } from "@/generated/prisma/enums";
 import { formatDateTime, humanize } from "@/lib/format";
 import type { AuditLogRow } from "@/types/audit";
 
@@ -20,15 +20,16 @@ const PURPLE =
   "bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30";
 
 /** Local action → badge styles (audit-scoped; constants.ts is shared & untouched). */
-const ACTION_STYLES: Record<AuditAction, { label: string; className: string }> = {
-  CREATE: { label: "Create", className: GREEN },
-  UPDATE: { label: "Update", className: BLUE },
-  DELETE: { label: "Delete", className: RED },
-  LOGIN: { label: "Login", className: SLATE },
-  LOGOUT: { label: "Logout", className: SLATE },
-  EXPORT: { label: "Export", className: AMBER },
-  ROLE_CHANGE: { label: "Role Change", className: PURPLE },
-};
+const ACTION_STYLES: Record<AuditAction, { label: string; className: string }> =
+  {
+    CREATE: { label: "Create", className: GREEN },
+    UPDATE: { label: "Update", className: BLUE },
+    DELETE: { label: "Delete", className: RED },
+    LOGIN: { label: "Login", className: SLATE },
+    LOGOUT: { label: "Logout", className: SLATE },
+    EXPORT: { label: "Export", className: AMBER },
+    ROLE_CHANGE: { label: "Role Change", className: PURPLE },
+  };
 
 export const AUDIT_ACTION_STYLES = ACTION_STYLES;
 
@@ -59,7 +60,9 @@ export function getAuditColumns(): ColumnDef<AuditLogRow, unknown>[] {
             </Avatar>
             <div className="min-w-0">
               <p className="truncate font-medium">{user.name}</p>
-              <p className="truncate text-xs text-muted-foreground">{user.email}</p>
+              <p className="truncate text-xs text-muted-foreground">
+                {user.email}
+              </p>
             </div>
           </div>
         );
@@ -68,7 +71,9 @@ export function getAuditColumns(): ColumnDef<AuditLogRow, unknown>[] {
     {
       accessorKey: "action",
       header: () => <DataTableColumnHeader title="Action" sortKey="action" />,
-      cell: ({ row }) => <StatusBadge style={ACTION_STYLES[row.original.action]} />,
+      cell: ({ row }) => (
+        <StatusBadge style={ACTION_STYLES[row.original.action]} />
+      ),
     },
     {
       id: "entity",
@@ -78,14 +83,18 @@ export function getAuditColumns(): ColumnDef<AuditLogRow, unknown>[] {
         return (
           <div className="min-w-0">
             <p className="truncate text-sm">{humanize(entityType)}</p>
-            <p className="truncate font-mono text-xs text-muted-foreground">{entityId}</p>
+            <p className="truncate font-mono text-xs text-muted-foreground">
+              {entityId}
+            </p>
           </div>
         );
       },
     },
     {
       accessorKey: "createdAt",
-      header: () => <DataTableColumnHeader title="Timestamp" sortKey="createdAt" />,
+      header: () => (
+        <DataTableColumnHeader title="Timestamp" sortKey="createdAt" />
+      ),
       cell: ({ row }) => (
         <span className="whitespace-nowrap text-sm text-muted-foreground">
           {formatDateTime(row.original.createdAt)}

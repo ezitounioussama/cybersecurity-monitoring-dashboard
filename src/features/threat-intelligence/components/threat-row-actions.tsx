@@ -26,7 +26,9 @@ export function ThreatRowActions({ threat, canUpdate, canDelete }: Props) {
     return new Promise<void>((resolve) => {
       startTransition(async () => {
         const res = await deleteThreat(threat.id);
-        res.success ? toast.success("Threat deleted") : toast.error(res.error.message);
+        res.success
+          ? toast.success("Threat deleted")
+          : toast.error(res.error.message);
         resolve();
       });
     });
@@ -37,11 +39,20 @@ export function ThreatRowActions({ threat, canUpdate, canDelete }: Props) {
   return (
     <>
       {canUpdate && (
-        <ThreatFormSheet threat={threat} open={editOpen} onOpenChange={setEditOpen} />
+        <ThreatFormSheet
+          threat={threat}
+          open={editOpen}
+          onOpenChange={setEditOpen}
+        />
       )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="size-8" disabled={pending}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-8"
+            disabled={pending}
+          >
             <IconDotsVertical className="size-4" />
             <span className="sr-only">Open menu</span>
           </Button>

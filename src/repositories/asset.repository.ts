@@ -58,7 +58,9 @@ export const assetRepository = {
     return prisma.asset.findFirst({
       where: { id, organizationId, deletedAt: null },
       include: {
-        owner: { select: { id: true, name: true, email: true, avatarUrl: true } },
+        owner: {
+          select: { id: true, name: true, email: true, avatarUrl: true },
+        },
         vulnerabilities: { orderBy: { cvssScore: "desc" }, take: 50 },
         alerts: {
           where: { deletedAt: null },

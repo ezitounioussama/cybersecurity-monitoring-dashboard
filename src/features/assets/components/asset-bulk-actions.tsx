@@ -37,7 +37,12 @@ export function AssetBulkActions({
       destructive
       onConfirm={bulkDelete}
       trigger={
-        <Button variant="outline" size="sm" className="h-9 text-destructive" disabled={pending}>
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-9 text-destructive"
+          disabled={pending}
+        >
           <IconTrash className="size-4" /> Delete ({ids.length})
         </Button>
       }

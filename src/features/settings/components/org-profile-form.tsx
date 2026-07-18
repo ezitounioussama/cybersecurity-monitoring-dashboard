@@ -22,7 +22,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { orgProfileSchema, type OrgProfileValues } from "@/schemas/settings.schema";
+import {
+  type OrgProfileValues,
+  orgProfileSchema,
+} from "@/schemas/settings.schema";
 
 type OrgProfileFormProps = {
   canManage: boolean;
@@ -81,7 +84,9 @@ export function OrgProfileForm({ canManage, org }: OrgProfileFormProps) {
               <div>
                 <Button
                   type="submit"
-                  disabled={form.formState.isSubmitting || !form.formState.isDirty}
+                  disabled={
+                    form.formState.isSubmitting || !form.formState.isDirty
+                  }
                 >
                   {form.formState.isSubmitting ? "Saving…" : "Save changes"}
                 </Button>

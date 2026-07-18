@@ -1,14 +1,28 @@
-import type { IocType, ThreatConfidence, ThreatStatus } from "@/generated/prisma/enums";
+import type {
+  IocType,
+  ThreatConfidence,
+  ThreatStatus,
+} from "@/generated/prisma/enums";
 import { NotFoundError } from "@/lib/errors";
 import { orderByFrom, paginated } from "@/lib/query-utils";
 import { threatRepository } from "@/repositories/threat.repository";
-import { assertCan } from "@/services/authorization.service";
+import type {
+  ThreatCreateInput,
+  ThreatUpdateInput,
+} from "@/schemas/threat.schema";
 import { auditService } from "@/services/audit.service";
-import type { ThreatCreateInput, ThreatUpdateInput } from "@/schemas/threat.schema";
+import { assertCan } from "@/services/authorization.service";
 import type { ListParams } from "@/types/api";
 import type { AuthContext } from "@/types/auth";
 
-const SORTABLE = ["ioc", "source", "confidence", "status", "lastSeenAt", "createdAt"];
+const SORTABLE = [
+  "ioc",
+  "source",
+  "confidence",
+  "status",
+  "lastSeenAt",
+  "createdAt",
+];
 
 type ThreatFilters = {
   iocType?: IocType[];

@@ -4,14 +4,17 @@ import { DEFAULT_ORG } from "@/lib/constants";
 import { ForbiddenError, NotFoundError } from "@/lib/errors";
 import { organizationRepository } from "@/repositories/organization.repository";
 import { userRepository } from "@/repositories/user.repository";
-import { assertCan } from "@/services/authorization.service";
 import { auditService } from "@/services/audit.service";
+import { assertCan } from "@/services/authorization.service";
 import type { ListParams } from "@/types/api";
 import type { AuthContext } from "@/types/auth";
 
 function normalizeRole(raw?: string | null): Role | undefined {
   if (!raw) return undefined;
-  const value = raw.toUpperCase().replace(/^ORG:/, "").replace("BASIC_MEMBER", "VIEWER");
+  const value = raw
+    .toUpperCase()
+    .replace(/^ORG:/, "")
+    .replace("BASIC_MEMBER", "VIEWER");
   if (value === "ADMIN") return "ADMIN";
   if (value === "ANALYST") return "ANALYST";
   if (value === "VIEWER" || value === "MEMBER") return "VIEWER";
@@ -48,8 +51,11 @@ export const userService = {
         })
       : await organizationRepository.upsertByClerkOrgId({ ...DEFAULT_ORG });
 
-    const memberCount = await userRepository.countByOrganization(organization.id);
-    const role = normalizeRole(input.role) ?? (memberCount === 0 ? "ADMIN" : "VIEWER");
+    const memberCount = await userRepository.countByOrganization(
+      organization.id,
+    );
+    const role =
+      normalizeRole(input.role) ?? (memberCount === 0 ? "ADMIN" : "VIEWER");
 
     const user = await userRepository.create({
       clerkUserId: input.clerkUserId,
@@ -92,7 +98,9 @@ export const userService = {
       skip: (page - 1) * pageSize,
       take: pageSize,
       orderBy: params.sortBy
-        ? ({ [params.sortBy]: params.sortDir ?? "asc" } as Prisma.UserOrderByWithRelationInput)
+        ? ({
+            [params.sortBy]: params.sortDir ?? "asc",
+          } as Prisma.UserOrderByWithRelationInput)
         : undefined,
     });
     return {

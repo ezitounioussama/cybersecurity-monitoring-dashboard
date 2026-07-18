@@ -7,8 +7,7 @@ import { CriticalityBadge } from "@/components/shared/severity-badge";
 import { AssetStatusBadge } from "@/components/shared/status-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AssetRowActions } from "@/features/assets/components/asset-row-actions";
-import { formatRelative } from "@/lib/format";
-import { initials } from "@/lib/format";
+import { formatRelative, initials } from "@/lib/format";
 import type { AssetRow } from "@/types/asset";
 
 export function getAssetColumns(opts: {
@@ -18,9 +17,14 @@ export function getAssetColumns(opts: {
   return [
     {
       accessorKey: "hostname",
-      header: () => <DataTableColumnHeader title="Hostname" sortKey="hostname" />,
+      header: () => (
+        <DataTableColumnHeader title="Hostname" sortKey="hostname" />
+      ),
       cell: ({ row }) => (
-        <Link href={`/assets/${row.original.id}`} className="min-w-0 hover:underline">
+        <Link
+          href={`/assets/${row.original.id}`}
+          className="min-w-0 hover:underline"
+        >
           <p className="truncate font-medium">{row.original.hostname}</p>
           <p className="truncate text-xs text-muted-foreground">
             {row.original.operatingSystem}
@@ -30,14 +34,18 @@ export function getAssetColumns(opts: {
     },
     {
       accessorKey: "ipAddress",
-      header: () => <DataTableColumnHeader title="IP address" sortKey="ipAddress" />,
+      header: () => (
+        <DataTableColumnHeader title="IP address" sortKey="ipAddress" />
+      ),
       cell: ({ row }) => (
         <span className="font-mono text-xs">{row.original.ipAddress}</span>
       ),
     },
     {
       accessorKey: "criticality",
-      header: () => <DataTableColumnHeader title="Criticality" sortKey="criticality" />,
+      header: () => (
+        <DataTableColumnHeader title="Criticality" sortKey="criticality" />
+      ),
       cell: ({ row }) => <CriticalityBadge value={row.original.criticality} />,
     },
     {
@@ -49,8 +57,13 @@ export function getAssetColumns(opts: {
         return (
           <span className="flex items-center gap-2">
             <Avatar className="size-6">
-              <AvatarImage src={owner.avatarUrl ?? undefined} alt={owner.name} />
-              <AvatarFallback className="text-[10px]">{initials(owner.name)}</AvatarFallback>
+              <AvatarImage
+                src={owner.avatarUrl ?? undefined}
+                alt={owner.name}
+              />
+              <AvatarFallback className="text-[10px]">
+                {initials(owner.name)}
+              </AvatarFallback>
             </Avatar>
             <span className="truncate text-sm">{owner.name}</span>
           </span>
@@ -64,7 +77,9 @@ export function getAssetColumns(opts: {
     },
     {
       accessorKey: "lastScanAt",
-      header: () => <DataTableColumnHeader title="Last scan" sortKey="lastScanAt" />,
+      header: () => (
+        <DataTableColumnHeader title="Last scan" sortKey="lastScanAt" />
+      ),
       cell: ({ row }) =>
         row.original.lastScanAt ? (
           <span className="whitespace-nowrap text-sm text-muted-foreground">

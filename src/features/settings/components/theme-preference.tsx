@@ -2,7 +2,8 @@
 
 import { IconDeviceDesktop, IconMoon, IconSun } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState, type ComponentType } from "react";
+import { type ComponentType, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type ThemeOption = {
@@ -56,7 +56,10 @@ export function ThemePreference() {
                 role="radio"
                 aria-checked={active}
                 variant={active ? "default" : "outline"}
-                className={cn("h-auto flex-col gap-1.5 py-3", !active && "text-muted-foreground")}
+                className={cn(
+                  "h-auto flex-col gap-1.5 py-3",
+                  !active && "text-muted-foreground",
+                )}
                 onClick={() => setTheme(option.value)}
               >
                 <Icon className="size-5" />

@@ -2,8 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import type { AlertStatus } from "@/generated/prisma/enums";
+import { type ActionResult, actionError, actionOk } from "@/lib/action-utils";
 import { getAuthContext } from "@/lib/auth";
-import { actionError, actionOk, type ActionResult } from "@/lib/action-utils";
 import {
   alertCreateSchema,
   alertStatusSchema,
@@ -11,7 +11,9 @@ import {
 } from "@/schemas/alert.schema";
 import { alertService } from "@/services/alert.service";
 
-export async function createAlert(input: unknown): Promise<ActionResult<{ id: string }>> {
+export async function createAlert(
+  input: unknown,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     const data = alertCreateSchema.parse(input);
@@ -55,7 +57,9 @@ export async function updateAlertStatus(
   }
 }
 
-export async function deleteAlert(id: string): Promise<ActionResult<{ id: string }>> {
+export async function deleteAlert(
+  id: string,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     await alertService.remove(ctx, id);

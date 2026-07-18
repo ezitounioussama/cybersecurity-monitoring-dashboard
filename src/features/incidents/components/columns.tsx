@@ -1,7 +1,7 @@
 "use client";
 
-import type { ColumnDef } from "@tanstack/react-table";
 import { IconLink } from "@tabler/icons-react";
+import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { DataTableColumnHeader } from "@/components/shared/data-table/data-table-column-header";
 import { SeverityBadge } from "@/components/shared/severity-badge";
@@ -21,7 +21,10 @@ export function getIncidentColumns(opts: {
       accessorKey: "title",
       header: () => <DataTableColumnHeader title="Incident" sortKey="title" />,
       cell: ({ row }) => (
-        <Link href={`/incidents/${row.original.id}`} className="min-w-0 hover:underline">
+        <Link
+          href={`/incidents/${row.original.id}`}
+          className="min-w-0 hover:underline"
+        >
           <p className="truncate font-medium">{row.original.title}</p>
           <p className="flex items-center gap-1 text-xs text-muted-foreground">
             <IconLink className="size-3" />
@@ -32,7 +35,9 @@ export function getIncidentColumns(opts: {
     },
     {
       accessorKey: "severity",
-      header: () => <DataTableColumnHeader title="Severity" sortKey="severity" />,
+      header: () => (
+        <DataTableColumnHeader title="Severity" sortKey="severity" />
+      ),
       cell: ({ row }) => <SeverityBadge value={row.original.severity} />,
     },
     {
@@ -45,12 +50,18 @@ export function getIncidentColumns(opts: {
       header: () => <DataTableColumnHeader title="Assignee" />,
       cell: ({ row }) => {
         const analyst = row.original.assignedAnalyst;
-        if (!analyst) return <span className="text-muted-foreground">Unassigned</span>;
+        if (!analyst)
+          return <span className="text-muted-foreground">Unassigned</span>;
         return (
           <span className="flex items-center gap-2">
             <Avatar className="size-6">
-              <AvatarImage src={analyst.avatarUrl ?? undefined} alt={analyst.name} />
-              <AvatarFallback className="text-[10px]">{initials(analyst.name)}</AvatarFallback>
+              <AvatarImage
+                src={analyst.avatarUrl ?? undefined}
+                alt={analyst.name}
+              />
+              <AvatarFallback className="text-[10px]">
+                {initials(analyst.name)}
+              </AvatarFallback>
             </Avatar>
             <span className="truncate text-sm">{analyst.name}</span>
           </span>
@@ -59,7 +70,9 @@ export function getIncidentColumns(opts: {
     },
     {
       accessorKey: "createdAt",
-      header: () => <DataTableColumnHeader title="Created" sortKey="createdAt" />,
+      header: () => (
+        <DataTableColumnHeader title="Created" sortKey="createdAt" />
+      ),
       cell: ({ row }) => (
         <span className="whitespace-nowrap text-sm text-muted-foreground">
           {formatRelative(row.original.createdAt)}

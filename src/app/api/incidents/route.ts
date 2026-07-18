@@ -9,8 +9,14 @@ export const GET = apiRoute("read", async (_req, { ctx, url }) => {
   const params = parseListParams(url);
   const result = await incidentService.list(ctx, {
     ...params,
-    severity: asEnumArray(url.searchParams.get("severity")?.split(","), Severity),
-    status: asEnumArray(url.searchParams.get("status")?.split(","), IncidentStatus),
+    severity: asEnumArray(
+      url.searchParams.get("severity")?.split(","),
+      Severity,
+    ),
+    status: asEnumArray(
+      url.searchParams.get("status")?.split(","),
+      IncidentStatus,
+    ),
   });
   return ok(result);
 });

@@ -1,12 +1,14 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { type ActionResult, actionError, actionOk } from "@/lib/action-utils";
 import { getAuthContext } from "@/lib/auth";
-import { actionError, actionOk, type ActionResult } from "@/lib/action-utils";
 import { assetCreateSchema, assetUpdateSchema } from "@/schemas/asset.schema";
 import { assetService } from "@/services/asset.service";
 
-export async function createAsset(input: unknown): Promise<ActionResult<{ id: string }>> {
+export async function createAsset(
+  input: unknown,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     const data = assetCreateSchema.parse(input);
@@ -34,7 +36,9 @@ export async function updateAsset(
   }
 }
 
-export async function deleteAsset(id: string): Promise<ActionResult<{ id: string }>> {
+export async function deleteAsset(
+  id: string,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     await assetService.remove(ctx, id);

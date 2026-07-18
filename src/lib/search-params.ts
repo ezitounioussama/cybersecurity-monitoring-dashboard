@@ -12,7 +12,10 @@ export function readListParams(sp: SearchParamsInput): ListParams {
   const maxPageSize = PAGE_SIZE_OPTIONS.at(-1) ?? 100;
   const page = Math.max(1, Number(first(sp.page) ?? "1") || 1);
   const requested = Number(first(sp.pageSize) ?? DEFAULT_PAGE_SIZE);
-  const pageSize = Math.min(maxPageSize, Math.max(1, requested || DEFAULT_PAGE_SIZE));
+  const pageSize = Math.min(
+    maxPageSize,
+    Math.max(1, requested || DEFAULT_PAGE_SIZE),
+  );
   const [sortBy, sortDir] = first(sp.sort)?.split(".") ?? [];
   return {
     page,
@@ -27,5 +30,7 @@ export function readListParams(sp: SearchParamsInput): ListParams {
 export function readArray(sp: SearchParamsInput, key: string): string[] {
   const value = sp[key];
   if (!value) return [];
-  return (Array.isArray(value) ? value.join(",") : value).split(",").filter(Boolean);
+  return (Array.isArray(value) ? value.join(",") : value)
+    .split(",")
+    .filter(Boolean);
 }

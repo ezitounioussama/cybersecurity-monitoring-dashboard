@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
 import { IconFileText } from "@tabler/icons-react";
+import { useMemo } from "react";
 import { DataTable } from "@/components/shared/data-table/data-table";
 import { EmptyState } from "@/components/shared/empty-state";
 import {
@@ -26,7 +26,14 @@ const ACTION_OPTIONS = Object.keys(AuditAction).map((value) => ({
   label: AUDIT_ACTION_STYLES[value as AuditAction]?.label ?? humanize(value),
 }));
 
-export function AuditTable({ data, page, pageSize, pageCount, total, canExport }: Props) {
+export function AuditTable({
+  data,
+  page,
+  pageSize,
+  pageCount,
+  total,
+  canExport,
+}: Props) {
   const columns = useMemo(() => getAuditColumns(), []);
 
   return (
@@ -39,7 +46,9 @@ export function AuditTable({ data, page, pageSize, pageCount, total, canExport }
       total={total}
       getRowId={(row) => row.id}
       searchPlaceholder="Search by entity or user…"
-      facets={[{ filterKey: "action", title: "Action", options: ACTION_OPTIONS }]}
+      facets={[
+        { filterKey: "action", title: "Action", options: ACTION_OPTIONS },
+      ]}
       canExport={canExport}
       csv={{
         filename: "audit-logs",

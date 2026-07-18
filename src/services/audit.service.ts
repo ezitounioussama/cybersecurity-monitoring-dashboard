@@ -1,10 +1,10 @@
 import type { Prisma } from "@/generated/prisma/client";
 import type { AuditAction } from "@/generated/prisma/enums";
+import { logger } from "@/lib/logger";
 import { auditRepository } from "@/repositories/audit.repository";
 import { assertCan } from "@/services/authorization.service";
-import { logger } from "@/lib/logger";
-import type { AuthContext } from "@/types/auth";
 import type { ListParams } from "@/types/api";
+import type { AuthContext } from "@/types/auth";
 
 type RecordInput = {
   action: AuditAction;
@@ -36,7 +36,10 @@ export const auditService = {
     }
   },
 
-  async list(ctx: AuthContext, params: ListParams & { action?: AuditAction; entityType?: string }) {
+  async list(
+    ctx: AuthContext,
+    params: ListParams & { action?: AuditAction; entityType?: string },
+  ) {
     assertCan(ctx.role, "auditLog:view");
     const { page, pageSize } = params;
     const { items, total } = await auditRepository.list({

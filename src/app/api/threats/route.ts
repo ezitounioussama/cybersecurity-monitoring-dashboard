@@ -1,4 +1,8 @@
-import { IocType, ThreatConfidence, ThreatStatus } from "@/generated/prisma/enums";
+import {
+  IocType,
+  ThreatConfidence,
+  ThreatStatus,
+} from "@/generated/prisma/enums";
 import { ok } from "@/lib/api-response";
 import { asEnumArray } from "@/lib/query-utils";
 import { apiRoute, parseListParams } from "@/lib/route-utils";
@@ -14,7 +18,10 @@ export const GET = apiRoute("read", async (_req, { ctx, url }) => {
       url.searchParams.get("confidence")?.split(","),
       ThreatConfidence,
     ),
-    status: asEnumArray(url.searchParams.get("status")?.split(","), ThreatStatus),
+    status: asEnumArray(
+      url.searchParams.get("status")?.split(","),
+      ThreatStatus,
+    ),
   });
   return ok(result);
 });

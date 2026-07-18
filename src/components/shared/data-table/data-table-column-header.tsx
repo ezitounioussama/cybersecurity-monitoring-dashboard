@@ -20,7 +20,9 @@ export function DataTableColumnHeader({ title, sortKey, className }: Props) {
   const { sortBy, sortDir, setSort } = useDataTableParams();
 
   if (!sortKey) {
-    return <span className={cn("text-xs font-medium", className)}>{title}</span>;
+    return (
+      <span className={cn("text-xs font-medium", className)}>{title}</span>
+    );
   }
 
   const active = sortBy === sortKey;
@@ -30,7 +32,10 @@ export function DataTableColumnHeader({ title, sortKey, className }: Props) {
     <Button
       variant="ghost"
       size="sm"
-      className={cn("-ml-2 h-8 gap-1 px-2 data-[active=true]:text-foreground", className)}
+      className={cn(
+        "-ml-2 h-8 gap-1 px-2 data-[active=true]:text-foreground",
+        className,
+      )}
       data-active={active}
       onClick={() => setSort(sortKey, nextDir)}
     >

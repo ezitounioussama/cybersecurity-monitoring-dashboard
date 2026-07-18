@@ -9,7 +9,9 @@ export type IncidentRow = Prisma.IncidentGetPayload<{
 
 export type IncidentDetail = Prisma.IncidentGetPayload<{
   include: {
-    assignedAnalyst: { select: { id: true; name: true; email: true; avatarUrl: true } };
+    assignedAnalyst: {
+      select: { id: true; name: true; email: true; avatarUrl: true };
+    };
     incidentAlerts: {
       include: {
         alert: {

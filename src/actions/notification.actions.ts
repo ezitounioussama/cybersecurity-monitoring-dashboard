@@ -1,8 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { type ActionResult, actionError, actionOk } from "@/lib/action-utils";
 import { getAuthContext } from "@/lib/auth";
-import { actionError, actionOk, type ActionResult } from "@/lib/action-utils";
 import { notificationService } from "@/services/notification.service";
 
 export async function markNotificationRead(
@@ -18,7 +18,9 @@ export async function markNotificationRead(
   }
 }
 
-export async function markAllNotificationsRead(): Promise<ActionResult<{ success: true }>> {
+export async function markAllNotificationsRead(): Promise<
+  ActionResult<{ success: true }>
+> {
   try {
     const ctx = await getAuthContext();
     await notificationService.markAllRead(ctx);

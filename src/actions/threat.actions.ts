@@ -1,9 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { type ActionResult, actionError, actionOk } from "@/lib/action-utils";
 import { getAuthContext } from "@/lib/auth";
-import { actionError, actionOk, type ActionResult } from "@/lib/action-utils";
-import { threatCreateSchema, threatUpdateSchema } from "@/schemas/threat.schema";
+import {
+  threatCreateSchema,
+  threatUpdateSchema,
+} from "@/schemas/threat.schema";
 import { threatService } from "@/services/threat.service";
 
 export async function createThreat(
@@ -35,7 +38,9 @@ export async function updateThreat(
   }
 }
 
-export async function deleteThreat(id: string): Promise<ActionResult<{ id: string }>> {
+export async function deleteThreat(
+  id: string,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     await threatService.remove(ctx, id);

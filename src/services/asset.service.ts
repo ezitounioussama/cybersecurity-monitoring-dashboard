@@ -2,15 +2,28 @@ import type { AssetCriticality, AssetStatus } from "@/generated/prisma/enums";
 import { NotFoundError } from "@/lib/errors";
 import { orderByFrom, paginated } from "@/lib/query-utils";
 import { assetRepository } from "@/repositories/asset.repository";
-import { assertCan } from "@/services/authorization.service";
+import type {
+  AssetCreateInput,
+  AssetUpdateInput,
+} from "@/schemas/asset.schema";
 import { auditService } from "@/services/audit.service";
-import type { AssetCreateInput, AssetUpdateInput } from "@/schemas/asset.schema";
+import { assertCan } from "@/services/authorization.service";
 import type { ListParams } from "@/types/api";
 import type { AuthContext } from "@/types/auth";
 
-const SORTABLE = ["hostname", "ipAddress", "operatingSystem", "criticality", "status", "lastScanAt"];
+const SORTABLE = [
+  "hostname",
+  "ipAddress",
+  "operatingSystem",
+  "criticality",
+  "status",
+  "lastScanAt",
+];
 
-type AssetFilters = { criticality?: AssetCriticality[]; status?: AssetStatus[] };
+type AssetFilters = {
+  criticality?: AssetCriticality[];
+  status?: AssetStatus[];
+};
 
 export const assetService = {
   async list(ctx: AuthContext, params: ListParams & AssetFilters) {
@@ -22,7 +35,9 @@ export const assetService = {
       status: params.status,
       skip: (page - 1) * pageSize,
       take: pageSize,
-      orderBy: orderByFrom(params.sortBy, params.sortDir, SORTABLE, { hostname: "asc" }),
+      orderBy: orderByFrom(params.sortBy, params.sortDir, SORTABLE, {
+        hostname: "asc",
+      }),
     });
     return paginated(items, total, page, pageSize);
   },

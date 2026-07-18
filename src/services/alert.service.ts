@@ -1,16 +1,25 @@
 import type { AlertStatus, Severity } from "@/generated/prisma/enums";
 import { NotFoundError } from "@/lib/errors";
-import { orderByFrom } from "@/lib/query-utils";
-import { paginated } from "@/lib/query-utils";
+import { orderByFrom, paginated } from "@/lib/query-utils";
 import { alertRepository } from "@/repositories/alert.repository";
-import { assertCan } from "@/services/authorization.service";
+import type {
+  AlertCreateInput,
+  AlertUpdateInput,
+} from "@/schemas/alert.schema";
 import { auditService } from "@/services/audit.service";
+import { assertCan } from "@/services/authorization.service";
 import { notificationService } from "@/services/notification.service";
-import type { AlertCreateInput, AlertUpdateInput } from "@/schemas/alert.schema";
 import type { ListParams } from "@/types/api";
 import type { AuthContext } from "@/types/auth";
 
-const SORTABLE = ["title", "severity", "status", "source", "detectedAt", "createdAt"];
+const SORTABLE = [
+  "title",
+  "severity",
+  "status",
+  "source",
+  "detectedAt",
+  "createdAt",
+];
 
 type AlertFilters = { severity?: Severity[]; status?: AlertStatus[] };
 

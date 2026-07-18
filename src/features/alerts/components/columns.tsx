@@ -1,7 +1,7 @@
 "use client";
 
-import type { ColumnDef } from "@tanstack/react-table";
 import { IconServer } from "@tabler/icons-react";
+import type { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/shared/data-table/data-table-column-header";
 import { SeverityBadge } from "@/components/shared/severity-badge";
 import { AlertStatusBadge } from "@/components/shared/status-badge";
@@ -16,7 +16,9 @@ export function getAlertColumns(perms: {
   return [
     {
       accessorKey: "severity",
-      header: () => <DataTableColumnHeader title="Severity" sortKey="severity" />,
+      header: () => (
+        <DataTableColumnHeader title="Severity" sortKey="severity" />
+      ),
       cell: ({ row }) => <SeverityBadge value={row.original.severity} />,
     },
     {
@@ -30,7 +32,9 @@ export function getAlertColumns(perms: {
       cell: ({ row }) => (
         <div className="min-w-0">
           <p className="truncate font-medium">{row.original.title}</p>
-          <p className="truncate text-xs text-muted-foreground">{row.original.source}</p>
+          <p className="truncate text-xs text-muted-foreground">
+            {row.original.source}
+          </p>
         </div>
       ),
     },
@@ -58,12 +62,16 @@ export function getAlertColumns(perms: {
       accessorKey: "rule",
       header: () => <DataTableColumnHeader title="Rule" />,
       cell: ({ row }) => (
-        <span className="font-mono text-xs text-muted-foreground">{row.original.rule}</span>
+        <span className="font-mono text-xs text-muted-foreground">
+          {row.original.rule}
+        </span>
       ),
     },
     {
       accessorKey: "detectedAt",
-      header: () => <DataTableColumnHeader title="Detected" sortKey="detectedAt" />,
+      header: () => (
+        <DataTableColumnHeader title="Detected" sortKey="detectedAt" />
+      ),
       cell: ({ row }) => (
         <span className="whitespace-nowrap text-sm text-muted-foreground">
           {formatRelative(row.original.detectedAt)}
@@ -73,7 +81,11 @@ export function getAlertColumns(perms: {
     {
       id: "actions",
       cell: ({ row }) => (
-        <AlertRowActions alert={row.original} canUpdate={perms.canUpdate} canDelete={perms.canDelete} />
+        <AlertRowActions
+          alert={row.original}
+          canUpdate={perms.canUpdate}
+          canDelete={perms.canDelete}
+        />
       ),
     },
   ];

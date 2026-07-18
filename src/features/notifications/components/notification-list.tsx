@@ -86,7 +86,10 @@ export function NotificationList({ items, type }: Props) {
       ) : (
         <ul className="divide-y rounded-xl border">
           {items.map((notification) => (
-            <NotificationItem key={notification.id} notification={notification} />
+            <NotificationItem
+              key={notification.id}
+              notification={notification}
+            />
           ))}
         </ul>
       )}

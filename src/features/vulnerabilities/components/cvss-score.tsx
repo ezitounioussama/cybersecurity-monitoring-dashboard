@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils";
 
 function band(score: number) {
   if (score >= 9) return "bg-red-500/15 text-red-600 dark:text-red-400";
-  if (score >= 7) return "bg-orange-500/15 text-orange-600 dark:text-orange-400";
+  if (score >= 7)
+    return "bg-orange-500/15 text-orange-600 dark:text-orange-400";
   if (score >= 4) return "bg-amber-500/15 text-amber-600 dark:text-amber-400";
   return "bg-sky-500/15 text-sky-600 dark:text-sky-400";
 }

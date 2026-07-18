@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { IocType, ThreatConfidence, ThreatStatus } from "@/generated/prisma/enums";
+import {
+  IocType,
+  ThreatConfidence,
+  ThreatStatus,
+} from "@/generated/prisma/enums";
 import { optionalText, requiredText } from "@/lib/zod";
 
 export const threatCreateSchema = z.object({

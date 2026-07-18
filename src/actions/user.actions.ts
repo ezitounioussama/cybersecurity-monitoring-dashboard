@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import type { Role } from "@/generated/prisma/enums";
-import { actionError, actionOk, type ActionResult } from "@/lib/action-utils";
+import { type ActionResult, actionError, actionOk } from "@/lib/action-utils";
 import { getAuthContext } from "@/lib/auth";
 import { userActiveSchema, userRoleSchema } from "@/schemas/user.schema";
 import { userService } from "@/services/user.service";

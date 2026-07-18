@@ -18,7 +18,10 @@ export default clerkMiddleware(async (auth, req) => {
     const { userId } = await auth();
     if (!userId) {
       return NextResponse.json(
-        { success: false, error: { code: "UNAUTHORIZED", message: "Authentication required" } },
+        {
+          success: false,
+          error: { code: "UNAUTHORIZED", message: "Authentication required" },
+        },
         { status: 401 },
       );
     }

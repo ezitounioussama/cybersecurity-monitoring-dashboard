@@ -1,6 +1,11 @@
 "use client";
 
-import { IconDotsVertical, IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
+import {
+  IconDotsVertical,
+  IconEdit,
+  IconEye,
+  IconTrash,
+} from "@tabler/icons-react";
 import Link from "next/link";
 import { useTransition } from "react";
 import { toast } from "sonner";
@@ -24,14 +29,21 @@ type Props = {
   canDelete: boolean;
 };
 
-export function IncidentRowActions({ incident, analystOptions, canUpdate, canDelete }: Props) {
+export function IncidentRowActions({
+  incident,
+  analystOptions,
+  canUpdate,
+  canDelete,
+}: Props) {
   const [pending, startTransition] = useTransition();
 
   function remove() {
     return new Promise<void>((resolve) => {
       startTransition(async () => {
         const res = await deleteIncident(incident.id);
-        res.success ? toast.success("Incident deleted") : toast.error(res.error.message);
+        res.success
+          ? toast.success("Incident deleted")
+          : toast.error(res.error.message);
         resolve();
       });
     });
@@ -40,7 +52,12 @@ export function IncidentRowActions({ incident, analystOptions, canUpdate, canDel
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-8" disabled={pending}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-8"
+          disabled={pending}
+        >
           <IconDotsVertical className="size-4" />
           <span className="sr-only">Open menu</span>
         </Button>
@@ -70,7 +87,10 @@ export function IncidentRowActions({ incident, analystOptions, canUpdate, canDel
             entityLabel="Incident"
             onConfirm={remove}
             trigger={
-              <DropdownMenuItem variant="destructive" onSelect={(e) => e.preventDefault()}>
+              <DropdownMenuItem
+                variant="destructive"
+                onSelect={(e) => e.preventDefault()}
+              >
                 <IconTrash className="size-4" /> Delete
               </DropdownMenuItem>
             }

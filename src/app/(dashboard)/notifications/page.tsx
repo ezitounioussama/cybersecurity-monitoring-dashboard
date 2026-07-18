@@ -1,8 +1,8 @@
 import { IconBell } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
-import { NotificationType } from "@/generated/prisma/enums";
 import { NotificationList } from "@/features/notifications/components/notification-list";
+import { NotificationType } from "@/generated/prisma/enums";
 import { getAuthContext } from "@/lib/auth";
 import { readListParams, type SearchParamsInput } from "@/lib/search-params";
 import { notificationService } from "@/services/notification.service";

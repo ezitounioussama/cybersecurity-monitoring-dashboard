@@ -56,7 +56,11 @@ export function GlobalSearch({ role }: { role: Role }) {
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Navigation">
             {items.map((item) => (
-              <CommandItem key={item.href} value={item.label} onSelect={() => go(item.href)}>
+              <CommandItem
+                key={item.href}
+                value={item.label}
+                onSelect={() => go(item.href)}
+              >
                 <item.icon className="size-4" />
                 {item.label}
               </CommandItem>

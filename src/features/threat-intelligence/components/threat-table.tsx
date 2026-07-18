@@ -1,12 +1,15 @@
 "use client";
 
-import { useMemo } from "react";
 import { IconRadar } from "@tabler/icons-react";
+import { useMemo } from "react";
 import { DataTable } from "@/components/shared/data-table/data-table";
 import { EmptyState } from "@/components/shared/empty-state";
 import { getThreatColumns } from "@/features/threat-intelligence/components/columns";
 import { IocType } from "@/generated/prisma/enums";
-import { THREAT_CONFIDENCE_STYLES, THREAT_STATUS_STYLES } from "@/lib/constants";
+import {
+  THREAT_CONFIDENCE_STYLES,
+  THREAT_STATUS_STYLES,
+} from "@/lib/constants";
 import { formatDateTime, humanize } from "@/lib/format";
 import { facetOptions } from "@/lib/query-utils";
 import type { ThreatFeedRow } from "@/types/threat";
@@ -25,9 +28,20 @@ type Props = {
   perms: { canUpdate: boolean; canDelete: boolean; canExport: boolean };
 };
 
-export function ThreatTable({ data, page, pageSize, pageCount, total, perms }: Props) {
+export function ThreatTable({
+  data,
+  page,
+  pageSize,
+  pageCount,
+  total,
+  perms,
+}: Props) {
   const columns = useMemo(
-    () => getThreatColumns({ canUpdate: perms.canUpdate, canDelete: perms.canDelete }),
+    () =>
+      getThreatColumns({
+        canUpdate: perms.canUpdate,
+        canDelete: perms.canDelete,
+      }),
     [perms.canUpdate, perms.canDelete],
   );
 
@@ -48,7 +62,11 @@ export function ThreatTable({ data, page, pageSize, pageCount, total, perms }: P
           title: "Confidence",
           options: facetOptions(THREAT_CONFIDENCE_STYLES),
         },
-        { filterKey: "status", title: "Status", options: facetOptions(THREAT_STATUS_STYLES) },
+        {
+          filterKey: "status",
+          title: "Status",
+          options: facetOptions(THREAT_STATUS_STYLES),
+        },
       ]}
       canExport={perms.canExport}
       csv={{
@@ -62,7 +80,10 @@ export function ThreatTable({ data, page, pageSize, pageCount, total, perms }: P
           { header: "Source", accessor: (t) => t.source },
           { header: "Confidence", accessor: (t) => t.confidence },
           { header: "Status", accessor: (t) => t.status },
-          { header: "Last Seen", accessor: (t) => formatDateTime(t.lastSeenAt) },
+          {
+            header: "Last Seen",
+            accessor: (t) => formatDateTime(t.lastSeenAt),
+          },
         ],
       }}
       emptyState={

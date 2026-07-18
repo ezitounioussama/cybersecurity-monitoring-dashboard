@@ -3,11 +3,15 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
-import { Role } from "@/generated/prisma/enums";
 import { UserTable } from "@/features/users/components/user-table";
+import { Role } from "@/generated/prisma/enums";
 import { getAuthContext } from "@/lib/auth";
 import { asEnumArray } from "@/lib/query-utils";
-import { readArray, readListParams, type SearchParamsInput } from "@/lib/search-params";
+import {
+  readArray,
+  readListParams,
+  type SearchParamsInput,
+} from "@/lib/search-params";
 import { can } from "@/services/authorization.service";
 import { userService } from "@/services/user.service";
 

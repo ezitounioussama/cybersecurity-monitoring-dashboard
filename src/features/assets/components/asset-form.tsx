@@ -32,8 +32,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { AssetCriticality, AssetStatus } from "@/generated/prisma/enums";
-import { assetFormSchema, type AssetFormValues } from "@/schemas/asset.schema";
 import { humanize } from "@/lib/format";
+import { type AssetFormValues, assetFormSchema } from "@/schemas/asset.schema";
 import type { AssetRow } from "@/types/asset";
 
 const UNASSIGNED = "__none__";
@@ -83,18 +83,25 @@ export function AssetFormSheet({ trigger, ownerOptions, asset }: Props) {
         <SheetHeader>
           <SheetTitle>{isEdit ? "Edit asset" : "Add asset"}</SheetTitle>
           <SheetDescription>
-            {isEdit ? "Update this asset's details." : "Register a new asset in the inventory."}
+            {isEdit
+              ? "Update this asset's details."
+              : "Register a new asset in the inventory."}
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 px-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid gap-4 px-4"
+          >
             <FormField
               control={form.control}
               name="hostname"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Hostname</FormLabel>
-                  <FormControl><Input placeholder="web-prod-01" {...field} /></FormControl>
+                  <FormControl>
+                    <Input placeholder="web-prod-01" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -106,7 +113,9 @@ export function AssetFormSheet({ trigger, ownerOptions, asset }: Props) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>IP address</FormLabel>
-                    <FormControl><Input placeholder="10.0.1.20" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="10.0.1.20" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -117,7 +126,9 @@ export function AssetFormSheet({ trigger, ownerOptions, asset }: Props) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Operating system</FormLabel>
-                    <FormControl><Input placeholder="Ubuntu 22.04" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="Ubuntu 22.04" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -131,10 +142,16 @@ export function AssetFormSheet({ trigger, ownerOptions, asset }: Props) {
                   <FormItem>
                     <FormLabel>Criticality</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
                       <SelectContent>
                         {Object.values(AssetCriticality).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -149,10 +166,16 @@ export function AssetFormSheet({ trigger, ownerOptions, asset }: Props) {
                   <FormItem>
                     <FormLabel>Status</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
                       <SelectContent>
                         {Object.values(AssetStatus).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -171,11 +194,17 @@ export function AssetFormSheet({ trigger, ownerOptions, asset }: Props) {
                     onValueChange={field.onChange}
                     value={field.value || UNASSIGNED}
                   >
-                    <FormControl><SelectTrigger><SelectValue placeholder="Unassigned" /></SelectTrigger></FormControl>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Unassigned" />
+                      </SelectTrigger>
+                    </FormControl>
                     <SelectContent>
                       <SelectItem value={UNASSIGNED}>Unassigned</SelectItem>
                       {ownerOptions.map((o) => (
-                        <SelectItem key={o.id} value={o.id}>{o.name}</SelectItem>
+                        <SelectItem key={o.id} value={o.id}>
+                          {o.name}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -185,7 +214,11 @@ export function AssetFormSheet({ trigger, ownerOptions, asset }: Props) {
             />
             <SheetFooter className="px-0">
               <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? "Saving…" : isEdit ? "Save changes" : "Add asset"}
+                {form.formState.isSubmitting
+                  ? "Saving…"
+                  : isEdit
+                    ? "Save changes"
+                    : "Add asset"}
               </Button>
             </SheetFooter>
           </form>

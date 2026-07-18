@@ -23,7 +23,8 @@ export default function DashboardError({
       <div className="space-y-1">
         <h2 className="text-lg font-semibold">Something went wrong</h2>
         <p className="max-w-md text-sm text-muted-foreground">
-          An unexpected error occurred while loading this view. You can try again.
+          An unexpected error occurred while loading this view. You can try
+          again.
         </p>
       </div>
       <Button onClick={reset}>Try again</Button>

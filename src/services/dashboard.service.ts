@@ -3,11 +3,16 @@ import type { AssetCriticality, Severity } from "@/generated/prisma/enums";
 import { SEVERITY_HEX } from "@/lib/constants";
 import { humanize } from "@/lib/format";
 import { dashboardRepository } from "@/repositories/dashboard.repository";
-import type { ChartDatum, DashboardOverview } from "@/types/dashboard";
 import type { AuthContext } from "@/types/auth";
+import type { ChartDatum, DashboardOverview } from "@/types/dashboard";
 
 const SEVERITY_ORDER: Severity[] = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
-const CRITICALITY_ORDER: AssetCriticality[] = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
+const CRITICALITY_ORDER: AssetCriticality[] = [
+  "LOW",
+  "MEDIUM",
+  "HIGH",
+  "CRITICAL",
+];
 
 function computeHealth(input: {
   activeAlerts: number;
@@ -40,14 +45,18 @@ function buildTimeSeries(timestamps: Date[], days: number) {
 export const dashboardService = {
   async getOverview(ctx: AuthContext): Promise<DashboardOverview> {
     const orgId = ctx.organizationId;
-    const [counts, incidentSev, assetCrit, vulnSev, threatSrc, alertTs] = await Promise.all([
-      dashboardRepository.counts(orgId),
-      dashboardRepository.incidentSeverity(orgId),
-      dashboardRepository.assetCriticality(orgId),
-      dashboardRepository.vulnerabilitySeverity(orgId),
-      dashboardRepository.threatSources(orgId),
-      dashboardRepository.alertTimestampsSince(orgId, subDays(startOfDay(new Date()), 29)),
-    ]);
+    const [counts, incidentSev, assetCrit, vulnSev, threatSrc, alertTs] =
+      await Promise.all([
+        dashboardRepository.counts(orgId),
+        dashboardRepository.incidentSeverity(orgId),
+        dashboardRepository.assetCriticality(orgId),
+        dashboardRepository.vulnerabilitySeverity(orgId),
+        dashboardRepository.threatSources(orgId),
+        dashboardRepository.alertTimestampsSince(
+          orgId,
+          subDays(startOfDay(new Date()), 29),
+        ),
+      ]);
 
     const bySeverity = (
       rows: { severity: Severity; _count: { _all: number } }[],
@@ -74,9 +83,16 @@ export const dashboardService = {
       vulnerabilitySeverity: bySeverity(vulnSev),
       assetCriticality: CRITICALITY_ORDER.map((c) => {
         const found = assetCrit.find((r) => r.criticality === c);
-        return { name: humanize(c), value: found?._count._all ?? 0, fill: SEVERITY_HEX[c] };
+        return {
+          name: humanize(c),
+          value: found?._count._all ?? 0,
+          fill: SEVERITY_HEX[c],
+        };
       }),
-      threatSources: threatSrc.map((r) => ({ name: r.source, value: r._count._all })),
+      threatSources: threatSrc.map((r) => ({
+        name: r.source,
+        value: r._count._all,
+      })),
     };
   },
 };

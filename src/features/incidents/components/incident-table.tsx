@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
 import { IconShieldBolt } from "@tabler/icons-react";
+import { useMemo } from "react";
 import { DataTable } from "@/components/shared/data-table/data-table";
 import { EmptyState } from "@/components/shared/empty-state";
 import { getIncidentColumns } from "@/features/incidents/components/columns";
@@ -20,7 +20,15 @@ type Props = {
   perms: { canUpdate: boolean; canDelete: boolean; canExport: boolean };
 };
 
-export function IncidentTable({ data, page, pageSize, pageCount, total, analystOptions, perms }: Props) {
+export function IncidentTable({
+  data,
+  page,
+  pageSize,
+  pageCount,
+  total,
+  analystOptions,
+  perms,
+}: Props) {
   const columns = useMemo(
     () =>
       getIncidentColumns({
@@ -42,8 +50,16 @@ export function IncidentTable({ data, page, pageSize, pageCount, total, analystO
       getRowId={(row) => row.id}
       searchPlaceholder="Search incidents…"
       facets={[
-        { filterKey: "severity", title: "Severity", options: facetOptions(SEVERITY_STYLES) },
-        { filterKey: "status", title: "Status", options: facetOptions(INCIDENT_STATUS_STYLES) },
+        {
+          filterKey: "severity",
+          title: "Severity",
+          options: facetOptions(SEVERITY_STYLES),
+        },
+        {
+          filterKey: "status",
+          title: "Status",
+          options: facetOptions(INCIDENT_STATUS_STYLES),
+        },
       ]}
       canExport={perms.canExport}
       csv={{
@@ -52,7 +68,10 @@ export function IncidentTable({ data, page, pageSize, pageCount, total, analystO
           { header: "Title", accessor: (i) => i.title },
           { header: "Severity", accessor: (i) => i.severity },
           { header: "Status", accessor: (i) => i.status },
-          { header: "Assignee", accessor: (i) => i.assignedAnalyst?.name ?? "" },
+          {
+            header: "Assignee",
+            accessor: (i) => i.assignedAnalyst?.name ?? "",
+          },
           { header: "Linked Alerts", accessor: (i) => i._count.incidentAlerts },
           { header: "Created", accessor: (i) => formatDate(i.createdAt) },
         ],

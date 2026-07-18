@@ -7,8 +7,15 @@ import { auditService } from "@/services/audit.service";
 /** Read-only audit log surface — append-only by design, no mutation verbs. */
 export const GET = apiRoute("read", async (_req, { ctx, url }) => {
   const params = parseListParams(url);
-  const action = asEnumArray([url.searchParams.get("action") ?? ""], AuditAction).at(0);
+  const action = asEnumArray(
+    [url.searchParams.get("action") ?? ""],
+    AuditAction,
+  ).at(0);
   const entityType = url.searchParams.get("entityType") ?? undefined;
-  const result = await auditService.list(ctx, { ...params, action, entityType });
+  const result = await auditService.list(ctx, {
+    ...params,
+    action,
+    entityType,
+  });
   return ok(result);
 });

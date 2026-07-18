@@ -25,7 +25,11 @@ export function actionError(error: unknown): ActionResult<never> {
   if (error instanceof AppError) {
     return {
       success: false,
-      error: { code: error.code, message: error.message, details: error.details },
+      error: {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+      },
     };
   }
   logger.error("Unhandled action error", {

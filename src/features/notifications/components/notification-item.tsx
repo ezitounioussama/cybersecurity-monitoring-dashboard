@@ -5,12 +5,12 @@ import {
   IconBellRinging,
   IconBug,
   IconCheck,
+  type IconProps,
   IconServer,
   IconUser,
-  type IconProps,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { useTransition, type ComponentType } from "react";
+import { type ComponentType, useTransition } from "react";
 import { toast } from "sonner";
 import { markNotificationRead } from "@/actions/notification.actions";
 import { Button } from "@/components/ui/button";
@@ -42,10 +42,17 @@ function entityHref(type: string | null, id: string | null): string | null {
   }
 }
 
-export function NotificationItem({ notification }: { notification: NotificationDTO }) {
+export function NotificationItem({
+  notification,
+}: {
+  notification: NotificationDTO;
+}) {
   const [pending, startTransition] = useTransition();
   const Icon = ICONS[notification.type];
-  const href = entityHref(notification.relatedEntityType, notification.relatedEntityId);
+  const href = entityHref(
+    notification.relatedEntityType,
+    notification.relatedEntityId,
+  );
 
   function onMarkRead() {
     startTransition(async () => {
@@ -72,14 +79,19 @@ export function NotificationItem({ notification }: { notification: NotificationD
             <span className="mt-1.5 size-2 shrink-0 rounded-full bg-primary" />
           )}
           {href ? (
-            <Link href={href} className="truncate text-sm font-medium hover:underline">
+            <Link
+              href={href}
+              className="truncate text-sm font-medium hover:underline"
+            >
               {notification.title}
             </Link>
           ) : (
             <p className="truncate text-sm font-medium">{notification.title}</p>
           )}
         </div>
-        <p className="mt-0.5 text-sm text-muted-foreground">{notification.message}</p>
+        <p className="mt-0.5 text-sm text-muted-foreground">
+          {notification.message}
+        </p>
         <p className="mt-1 text-xs text-muted-foreground">
           {formatRelative(notification.createdAt)}
         </p>

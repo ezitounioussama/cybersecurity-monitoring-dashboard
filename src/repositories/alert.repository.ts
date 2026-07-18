@@ -59,7 +59,9 @@ export const alertRepository = {
       include: {
         ...withAsset,
         incidentAlerts: {
-          include: { incident: { select: { id: true, title: true, status: true } } },
+          include: {
+            incident: { select: { id: true, title: true, status: true } },
+          },
         },
       },
     });

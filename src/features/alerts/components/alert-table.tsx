@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
 import { IconAlertTriangle } from "@tabler/icons-react";
+import { useMemo } from "react";
 import { DataTable } from "@/components/shared/data-table/data-table";
 import { EmptyState } from "@/components/shared/empty-state";
 import { AlertBulkActions } from "@/features/alerts/components/alert-bulk-actions";
@@ -20,9 +20,20 @@ type Props = {
   perms: { canUpdate: boolean; canDelete: boolean; canExport: boolean };
 };
 
-export function AlertTable({ data, page, pageSize, pageCount, total, perms }: Props) {
+export function AlertTable({
+  data,
+  page,
+  pageSize,
+  pageCount,
+  total,
+  perms,
+}: Props) {
   const columns = useMemo(
-    () => getAlertColumns({ canUpdate: perms.canUpdate, canDelete: perms.canDelete }),
+    () =>
+      getAlertColumns({
+        canUpdate: perms.canUpdate,
+        canDelete: perms.canDelete,
+      }),
     [perms.canUpdate, perms.canDelete],
   );
 
@@ -37,8 +48,16 @@ export function AlertTable({ data, page, pageSize, pageCount, total, perms }: Pr
       getRowId={(row) => row.id}
       searchPlaceholder="Search alerts, rules, IPs…"
       facets={[
-        { filterKey: "severity", title: "Severity", options: facetOptions(SEVERITY_STYLES) },
-        { filterKey: "status", title: "Status", options: facetOptions(ALERT_STATUS_STYLES) },
+        {
+          filterKey: "severity",
+          title: "Severity",
+          options: facetOptions(SEVERITY_STYLES),
+        },
+        {
+          filterKey: "status",
+          title: "Status",
+          options: facetOptions(ALERT_STATUS_STYLES),
+        },
       ]}
       canExport={perms.canExport}
       csv={{

@@ -40,7 +40,9 @@ export function AlertRowActions({ alert, canUpdate, canDelete }: Props) {
     return new Promise<void>((resolve) => {
       startTransition(async () => {
         const res = await deleteAlert(alert.id);
-        res.success ? toast.success("Alert deleted") : toast.error(res.error.message);
+        res.success
+          ? toast.success("Alert deleted")
+          : toast.error(res.error.message);
         resolve();
       });
     });
@@ -49,7 +51,12 @@ export function AlertRowActions({ alert, canUpdate, canDelete }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-8" disabled={pending}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-8"
+          disabled={pending}
+        >
           <IconDotsVertical className="size-4" />
           <span className="sr-only">Open menu</span>
         </Button>
@@ -63,13 +70,21 @@ export function AlertRowActions({ alert, canUpdate, canDelete }: Props) {
         {canUpdate && (
           <>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setStatus("ACKNOWLEDGED", "Alert acknowledged")}>
+            <DropdownMenuItem
+              onClick={() => setStatus("ACKNOWLEDGED", "Alert acknowledged")}
+            >
               <IconChecks className="size-4" /> Acknowledge
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setStatus("RESOLVED", "Alert resolved")}>
+            <DropdownMenuItem
+              onClick={() => setStatus("RESOLVED", "Alert resolved")}
+            >
               <IconCircleCheck className="size-4" /> Resolve
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setStatus("FALSE_POSITIVE", "Marked as false positive")}>
+            <DropdownMenuItem
+              onClick={() =>
+                setStatus("FALSE_POSITIVE", "Marked as false positive")
+              }
+            >
               <IconXboxX className="size-4" /> False positive
             </DropdownMenuItem>
           </>

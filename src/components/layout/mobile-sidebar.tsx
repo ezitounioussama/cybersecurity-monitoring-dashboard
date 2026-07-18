@@ -19,7 +19,12 @@ export function MobileSidebar({ role }: { role: Role }) {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-9 md:hidden" aria-label="Open menu">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-9 md:hidden"
+          aria-label="Open menu"
+        >
           <IconMenu2 className="size-5" />
         </Button>
       </SheetTrigger>
@@ -33,7 +38,10 @@ export function MobileSidebar({ role }: { role: Role }) {
           </SheetTitle>
         </div>
         <div className="py-2">
-          <NavLinks items={visibleNavItems(role)} onNavigate={() => setOpen(false)} />
+          <NavLinks
+            items={visibleNavItems(role)}
+            onNavigate={() => setOpen(false)}
+          />
         </div>
       </SheetContent>
     </Sheet>

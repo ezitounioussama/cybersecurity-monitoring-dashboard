@@ -2,8 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import type { IncidentStatus } from "@/generated/prisma/enums";
+import { type ActionResult, actionError, actionOk } from "@/lib/action-utils";
 import { getAuthContext } from "@/lib/auth";
-import { actionError, actionOk, type ActionResult } from "@/lib/action-utils";
 import {
   incidentAssignSchema,
   incidentCreateSchema,
@@ -13,7 +13,9 @@ import {
 } from "@/schemas/incident.schema";
 import { incidentService } from "@/services/incident.service";
 
-export async function createIncident(input: unknown): Promise<ActionResult<{ id: string }>> {
+export async function createIncident(
+  input: unknown,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     const data = incidentCreateSchema.parse(input);
@@ -25,7 +27,10 @@ export async function createIncident(input: unknown): Promise<ActionResult<{ id:
   }
 }
 
-export async function updateIncident(id: string, input: unknown): Promise<ActionResult<{ id: string }>> {
+export async function updateIncident(
+  id: string,
+  input: unknown,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     const data = incidentUpdateSchema.parse(input);
@@ -54,10 +59,15 @@ export async function updateIncidentStatus(
   }
 }
 
-export async function assignIncident(id: string, analystId: string | null): Promise<ActionResult<{ id: string }>> {
+export async function assignIncident(
+  id: string,
+  analystId: string | null,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
-    const { assignedAnalystId } = incidentAssignSchema.parse({ assignedAnalystId: analystId });
+    const { assignedAnalystId } = incidentAssignSchema.parse({
+      assignedAnalystId: analystId,
+    });
     await incidentService.assign(ctx, id, assignedAnalystId);
     revalidatePath(`/incidents/${id}`);
     return actionOk({ id });
@@ -66,7 +76,10 @@ export async function assignIncident(id: string, analystId: string | null): Prom
   }
 }
 
-export async function linkAlertToIncident(id: string, alertId: string): Promise<ActionResult<{ id: string }>> {
+export async function linkAlertToIncident(
+  id: string,
+  alertId: string,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     const parsed = incidentLinkAlertSchema.parse({ alertId });
@@ -78,7 +91,10 @@ export async function linkAlertToIncident(id: string, alertId: string): Promise<
   }
 }
 
-export async function unlinkAlertFromIncident(id: string, alertId: string): Promise<ActionResult<{ id: string }>> {
+export async function unlinkAlertFromIncident(
+  id: string,
+  alertId: string,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     const parsed = incidentLinkAlertSchema.parse({ alertId });
@@ -90,7 +106,9 @@ export async function unlinkAlertFromIncident(id: string, alertId: string): Prom
   }
 }
 
-export async function deleteIncident(id: string): Promise<ActionResult<{ id: string }>> {
+export async function deleteIncident(
+  id: string,
+): Promise<ActionResult<{ id: string }>> {
   try {
     const ctx = await getAuthContext();
     await incidentService.remove(ctx, id);

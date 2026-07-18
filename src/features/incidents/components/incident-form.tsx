@@ -34,8 +34,11 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { IncidentStatus, Severity } from "@/generated/prisma/enums";
-import { incidentFormSchema, type IncidentFormValues } from "@/schemas/incident.schema";
 import { humanize } from "@/lib/format";
+import {
+  type IncidentFormValues,
+  incidentFormSchema,
+} from "@/schemas/incident.schema";
 import type { AnalystOption, IncidentRow } from "@/types/incident";
 
 const UNASSIGNED = "__none__";
@@ -46,7 +49,11 @@ type Props = {
   incident?: IncidentRow;
 };
 
-export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) {
+export function IncidentFormSheet({
+  trigger,
+  analystOptions,
+  incident,
+}: Props) {
   const [open, setOpen] = useState(false);
   const isEdit = Boolean(incident);
   const form = useForm<IncidentFormValues>({
@@ -64,7 +71,8 @@ export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) 
   async function onSubmit(values: IncidentFormValues) {
     const payload = {
       ...values,
-      assignedAnalystId: values.assignedAnalystId === UNASSIGNED ? "" : values.assignedAnalystId,
+      assignedAnalystId:
+        values.assignedAnalystId === UNASSIGNED ? "" : values.assignedAnalystId,
       evidenceUrls: values.evidenceUrls
         .split(/[\n,]/)
         .map((v) => v.trim())
@@ -87,18 +95,30 @@ export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) 
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>{isEdit ? "Edit incident" : "Create incident"}</SheetTitle>
-          <SheetDescription>Track and coordinate the response to a security incident.</SheetDescription>
+          <SheetTitle>
+            {isEdit ? "Edit incident" : "Create incident"}
+          </SheetTitle>
+          <SheetDescription>
+            Track and coordinate the response to a security incident.
+          </SheetDescription>
         </SheetHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 px-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid gap-4 px-4"
+          >
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>
-                  <FormControl><Input placeholder="Ransomware on finance subnet" {...field} /></FormControl>
+                  <FormControl>
+                    <Input
+                      placeholder="Ransomware on finance subnet"
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -109,7 +129,13 @@ export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>
-                  <FormControl><Textarea rows={3} placeholder="Summary of the incident…" {...field} /></FormControl>
+                  <FormControl>
+                    <Textarea
+                      rows={3}
+                      placeholder="Summary of the incident…"
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -122,10 +148,16 @@ export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) 
                   <FormItem>
                     <FormLabel>Severity</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
                       <SelectContent>
                         {Object.values(Severity).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -140,10 +172,16 @@ export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) 
                   <FormItem>
                     <FormLabel>Status</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
                       <SelectContent>
                         {Object.values(IncidentStatus).map((v) => (
-                          <SelectItem key={v} value={v}>{humanize(v)}</SelectItem>
+                          <SelectItem key={v} value={v}>
+                            {humanize(v)}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -158,12 +196,21 @@ export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Assigned analyst</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value || UNASSIGNED}>
-                    <FormControl><SelectTrigger><SelectValue placeholder="Unassigned" /></SelectTrigger></FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value || UNASSIGNED}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Unassigned" />
+                      </SelectTrigger>
+                    </FormControl>
                     <SelectContent>
                       <SelectItem value={UNASSIGNED}>Unassigned</SelectItem>
                       {analystOptions.map((o) => (
-                        <SelectItem key={o.id} value={o.id}>{o.name}</SelectItem>
+                        <SelectItem key={o.id} value={o.id}>
+                          {o.name}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -177,7 +224,13 @@ export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) 
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Evidence links</FormLabel>
-                  <FormControl><Textarea rows={2} placeholder="https://… (one per line)" {...field} /></FormControl>
+                  <FormControl>
+                    <Textarea
+                      rows={2}
+                      placeholder="https://… (one per line)"
+                      {...field}
+                    />
+                  </FormControl>
                   <FormDescription>One URL per line.</FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -185,7 +238,11 @@ export function IncidentFormSheet({ trigger, analystOptions, incident }: Props) 
             />
             <SheetFooter className="px-0">
               <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? "Saving…" : isEdit ? "Save changes" : "Create incident"}
+                {form.formState.isSubmitting
+                  ? "Saving…"
+                  : isEdit
+                    ? "Save changes"
+                    : "Create incident"}
               </Button>
             </SheetFooter>
           </form>

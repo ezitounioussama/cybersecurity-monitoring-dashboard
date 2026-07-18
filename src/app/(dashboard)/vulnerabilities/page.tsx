@@ -2,15 +2,19 @@ import { IconBug, IconPlus } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
-import { PatchStatus, Severity } from "@/generated/prisma/enums";
 import { VulnerabilityFormSheet } from "@/features/vulnerabilities/components/vulnerability-form";
 import { VulnerabilityTable } from "@/features/vulnerabilities/components/vulnerability-table";
+import { PatchStatus, Severity } from "@/generated/prisma/enums";
 import { getAuthContext } from "@/lib/auth";
 import { asEnumArray } from "@/lib/query-utils";
-import { readArray, readListParams, type SearchParamsInput } from "@/lib/search-params";
+import {
+  readArray,
+  readListParams,
+  type SearchParamsInput,
+} from "@/lib/search-params";
 import { assetService } from "@/services/asset.service";
-import { vulnerabilityService } from "@/services/vulnerability.service";
 import { can } from "@/services/authorization.service";
+import { vulnerabilityService } from "@/services/vulnerability.service";
 
 export const metadata: Metadata = { title: "Vulnerabilities" };
 
