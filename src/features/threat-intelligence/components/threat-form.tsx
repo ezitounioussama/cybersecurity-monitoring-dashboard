@@ -82,8 +82,8 @@ export function ThreatFormSheet({
   });
 
   async function onSubmit(values: ThreatFormValues) {
-    const res = isEdit
-      ? await updateThreat(threat!.id, values)
+    const res = threat
+      ? await updateThreat(threat.id, values)
       : await createThreat(values);
     if (res.success) {
       toast.success(isEdit ? "Threat updated" : "Threat added");
