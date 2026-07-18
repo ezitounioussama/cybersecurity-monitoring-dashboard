@@ -78,8 +78,8 @@ export function IncidentFormSheet({
         .map((v) => v.trim())
         .filter(Boolean),
     };
-    const res = isEdit
-      ? await updateIncident(incident!.id, payload)
+    const res = incident
+      ? await updateIncident(incident.id, payload)
       : await createIncident(payload);
     if (res.success) {
       toast.success(isEdit ? "Incident updated" : "Incident created");

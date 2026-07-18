@@ -64,8 +64,8 @@ export function AssetFormSheet({ trigger, ownerOptions, asset }: Props) {
       ...values,
       ownerId: values.ownerId === UNASSIGNED ? "" : values.ownerId,
     };
-    const res = isEdit
-      ? await updateAsset(asset!.id, payload)
+    const res = asset
+      ? await updateAsset(asset.id, payload)
       : await createAsset(payload);
     if (res.success) {
       toast.success(isEdit ? "Asset updated" : "Asset created");
