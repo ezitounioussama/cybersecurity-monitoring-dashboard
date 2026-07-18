@@ -41,7 +41,7 @@ export function DataTableToolbar<T>({
 
   function resetAll() {
     setSearch("");
-    facets.forEach((f) => setFilter(f.filterKey, []));
+    for (const facet of facets) setFilter(facet.filterKey, []);
   }
 
   return (

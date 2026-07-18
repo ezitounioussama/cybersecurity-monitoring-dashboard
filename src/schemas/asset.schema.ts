@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { AssetCriticality, AssetStatus } from "@/generated/prisma/enums";
-import { id, optionalText, requiredText } from "@/lib/zod";
+import { id, requiredText } from "@/lib/zod";
 
 export const assetCreateSchema = z.object({
   hostname: requiredText(1, 255),
