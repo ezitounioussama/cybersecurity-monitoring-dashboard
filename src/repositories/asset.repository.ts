@@ -81,7 +81,7 @@ export const assetRepository = {
     return prisma.asset.create({ data });
   },
 
-  update(id: string, data: Prisma.AssetUpdateInput) {
+  update(id: string, data: Prisma.AssetUncheckedUpdateInput) {
     return prisma.asset.update({ where: { id }, data });
   },
 

@@ -93,6 +93,14 @@ export const ROLE_STYLES: Record<Role, BadgeStyle> = {
   VIEWER: { label: "Viewer", className: SLATE },
 };
 
+/** Severity → chart fill (Recharts needs a concrete color string). */
+export const SEVERITY_HEX: Record<Severity, string> = {
+  LOW: "#0ea5e9",
+  MEDIUM: "#f59e0b",
+  HIGH: "#f97316",
+  CRITICAL: "#ef4444",
+};
+
 /** Recharts series colors — mapped to the brand gradient CSS variables. */
 export const CHART_COLORS = [
   "var(--color-chart-1)",

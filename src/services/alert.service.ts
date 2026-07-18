@@ -37,6 +37,10 @@ export const alertService = {
     return alert;
   },
 
+  options(ctx: AuthContext) {
+    return alertRepository.listForOptions(ctx.organizationId);
+  },
+
   async create(ctx: AuthContext, input: AlertCreateInput) {
     assertCan(ctx.role, "alert:create");
     const alert = await alertRepository.create({

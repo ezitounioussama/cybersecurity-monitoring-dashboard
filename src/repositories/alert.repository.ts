@@ -65,11 +65,20 @@ export const alertRepository = {
     });
   },
 
+  listForOptions(organizationId: string, take = 50) {
+    return prisma.alert.findMany({
+      where: { organizationId, deletedAt: null },
+      select: { id: true, title: true, severity: true },
+      orderBy: { detectedAt: "desc" },
+      take,
+    });
+  },
+
   create(data: Prisma.AlertUncheckedCreateInput) {
     return prisma.alert.create({ data });
   },
 
-  update(id: string, data: Prisma.AlertUpdateInput) {
+  update(id: string, data: Prisma.AlertUncheckedUpdateInput) {
     return prisma.alert.update({ where: { id }, data });
   },
 

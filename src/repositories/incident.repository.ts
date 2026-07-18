@@ -73,7 +73,7 @@ export const incidentRepository = {
     return prisma.incident.create({ data });
   },
 
-  update(id: string, data: Prisma.IncidentUpdateInput) {
+  update(id: string, data: Prisma.IncidentUncheckedUpdateInput) {
     return prisma.incident.update({ where: { id }, data });
   },
 
