@@ -34,13 +34,13 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { AlertStatus, Severity } from "@/generated/prisma/enums";
-import { alertCreateSchema, type AlertCreateInput } from "@/schemas/alert.schema";
+import { alertFormSchema, type AlertFormValues } from "@/schemas/alert.schema";
 import { humanize } from "@/lib/format";
 
 export function CreateAlertSheet() {
   const [open, setOpen] = useState(false);
-  const form = useForm<AlertCreateInput>({
-    resolver: zodResolver(alertCreateSchema),
+  const form = useForm<AlertFormValues>({
+    resolver: zodResolver(alertFormSchema),
     defaultValues: {
       title: "",
       description: "",
@@ -54,7 +54,7 @@ export function CreateAlertSheet() {
     },
   });
 
-  async function onSubmit(values: AlertCreateInput) {
+  async function onSubmit(values: AlertFormValues) {
     const res = await createAlert(values);
     if (res.success) {
       toast.success("Alert created");

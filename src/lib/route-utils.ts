@@ -43,18 +43,18 @@ export function handleApiError(error: unknown) {
 }
 
 type RouteHelpers = { ctx: AuthContext; url: URL };
-type RouteHandler = (
+type RouteHandler<P> = (
   req: NextRequest,
   helpers: RouteHelpers,
-  route: { params: Promise<Record<string, string>> },
+  route: { params: Promise<P> },
 ) => Promise<Response>;
 
 /** Wrap a route handler with auth, per-user rate limiting, and error translation. */
-export function apiRoute(kind: "read" | "mutation", handler: RouteHandler) {
-  return async (
-    req: NextRequest,
-    route: { params: Promise<Record<string, string>> },
-  ) => {
+export function apiRoute<P = Record<string, never>>(
+  kind: "read" | "mutation",
+  handler: RouteHandler<P>,
+) {
+  return async (req: NextRequest, route: { params: Promise<P> }) => {
     try {
       const ctx = await getAuthContext();
       const limits = kind === "mutation" ? RATE_LIMITS.mutation : RATE_LIMITS.read;
