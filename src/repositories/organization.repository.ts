@@ -10,6 +10,10 @@ export const organizationRepository = {
     return prisma.organization.findUnique({ where: { id } });
   },
 
+  update(id: string, data: { name?: string }) {
+    return prisma.organization.update({ where: { id }, data });
+  },
+
   upsertByClerkOrgId(data: {
     clerkOrgId: string;
     name: string;
